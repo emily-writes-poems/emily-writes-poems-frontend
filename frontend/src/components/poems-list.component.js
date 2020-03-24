@@ -9,25 +9,25 @@ export default class PoemsList extends Component {
         const poemsList = poems.map((poem) =>
             <ul>
                 <li>
-                    <Link to={"/poem/" + poem}>{poem}</Link>
+                    <Link className="poem" to={"/poem/" + poem}>{poem}</Link>
                 </li>
             </ul>
         );
 
         return (
-            <div className="container">
-                <div className="header" align="center">
-                    <h1>emily.writes.poems.</h1>
-                    <p>a collection of my poems.</p>
+            <div className="container-fluid page">
+                <div className="container">
+                    <div className="header mt-4" align="center">
+                        <h1>emily.writes.poems.</h1>
+                        <h5>a collection of my poems.</h5>
+                    </div>
                     <hr/>
-                </div>
-                <div className="info">
-                    I've written some poems. Some about myself. Some about the world as I see it. And many about the people and worlds that I've created and imagined.
-                </div>
-                <div className="poemslist">
-                    <h2 align="center">my poems.</h2>
-                    {poemsList}
-                </div>
+                    <p className="about">I've written some poems. Some about myself. Some about the world as I see it. And many about the people and worlds that I've created and imagined.</p>
+               </div>
+               <div className="container poemslist">
+                   <h2 className="header-2 mt-4" align="center">my poems.</h2>
+                   {poemsList}
+               </div>
             </div>
         )
     }

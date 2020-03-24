@@ -12,24 +12,41 @@ code {
     monospace;
 } */
 
-
-.header {
-    font-family: 'Merriweather', serif;
+html, .page{
+    background-color: #F8F8FF;
 }
 
+.header {
+    font-family: 'Oxygen', serif;
+    color: #5B58BB;
+}
+
+.header-2 {
+    color: #454545;
+}
 .poemslist{
     font-family: 'Oxygen', sans-serif;
 }
 
+.poem, .poem:hover {
+    color: #5B58BB;
+    text-decoration: none;
+}
+
+.about{
+    font-family: 'Merriweather', serif;
+}
+
 .poemslist ul{
-    display:inline-block;
+    display: inline-block;
     list-style: none;
     padding-left: 0px;
 }
 
 .poemslist li {
     background-color: #F8F8FF;
-    margin: 10px 10px 10px 10px;
+    border: 1px solid black;
+    margin: 10px 5px 0px 5px;
     padding: 5px 10px 5px 10px;
     border-radius: 5px;
     display: inline-block;
