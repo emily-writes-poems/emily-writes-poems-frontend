@@ -17,6 +17,7 @@ connection.once('open', function() {
     console.log(">> Established connection to MongoDB database! <<")
 });
 
+
 // Get all poems
 poemRoutes.route('/').get(function(req, res) {
     Poem.find(function(err, poems) {
@@ -25,14 +26,16 @@ poemRoutes.route('/').get(function(req, res) {
     });
 });
 
+
 // Search for poem by title
 poemRoutes.route('/:title').get(function(req, res) {
-    console.log('wow poemTitle: ' + poemTitle);
-    Poem.find({ poem_title: poemTitle}, function(err, poem) {
+    console.log('Querying for: ' + req.params.title);
+    Poem.findOne({ poem_title: req.params.title}, function(err, poem) {
         if(err) { return res.send(err); }
         else { res.json(poem); }
     });
 });
+
 
 app.use('/poems', poemRoutes)
 
