@@ -13,7 +13,7 @@
 
 ## The technical stuff
 * I'm exploring the MERN stack for this webapp!
-* M: MongoDB [not yet set up]
-* E: Express.js [to-do]
+* M: MongoDB [set up and populated with poems!]
+* E: Express.js [backend routing]
 * R: React [Bootstrapped with [Create React App](https://github.com/facebook/create-react-app)]
 * N: Node.js [Also with Create React App]
