@@ -1,53 +1,67 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
-html, .page{
+/* GLOBAL STYLES */
+html, .page {
     background-color: #F8F8FF;
 }
 
-.header {
-    font-family: 'Oxygen', serif;
-    color: #5B58BB;
-}
-
-.header-2 {
-    color: #454545;
-}
-.poemslist{
-    font-family: 'Oxygen', sans-serif;
-}
-
-.poem, .poem:hover {
+.link-style, .link-style:hover {
     color: #5B58BB;
     text-decoration: none;
 }
 
-.about{
+/* HEADER */
+.page-header h1 {
+    font-family: 'Oxygen';
+    color: #5B58BB;
+}
+
+.page-header h5 {
+    font-family: 'Open Sans';
+    color: #454545;
+}
+
+/* HOMEPAGE */
+.header-2 {
+    color: #454545;
+}
+
+.about {
     font-family: 'Merriweather', serif;
 }
 
-.poemslist ul{
-    display: inline-block;
-    list-style: none;
-    padding-left: 0px;
+.poemslist {
+    font-family: 'Oxygen', sans-serif;
 }
 
-.poemslist li {
-    background-color: #F8F8FF;
-    border: 1px solid black;
-    margin: 10px 5px 0px 5px;
-    padding: 5px 10px 5px 10px;
-    border-radius: 5px;
+/* POEM PAGE*/
+.poem-header h4 {
+    font-family: 'Oxygen';
+    color: #5B58BB;
+}
+
+.poem-header h6 {
+    font-family: 'Open Sans';
+}
+
+.poemtext {
+    font-family: 'Merriweather', serif;
+    white-space: pre-wrap;
+}
+
+.similarpoems h5 {
+    font-family: 'Open Sans';
+}
+
+.similarpoems ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.similarpoems li {
+    font-family: 'Oxygen';
     display: inline-block;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 20px;
+    color: #5B58BB;
 }

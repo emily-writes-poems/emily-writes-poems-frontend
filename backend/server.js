@@ -14,22 +14,25 @@ mongoose.connect('mongodb://127.0.0.1:27017/poems',{ useNewURLParser: true});
 const connection = mongoose.connection;
 
 connection.once('open', function() {
-    console.log(">> Established connection to MongoDB database! <<")
+    console.log('>> Established connection to MongoDB database!')
 });
 
 
 // Get all poems
 poemRoutes.route('/').get(function(req, res) {
+    console.log('>> Fetching all poems')
     Poem.find(function(err, poems) {
        if(err) { console.log(err); }
        else { res.json(poems); }
-    });
+    })
+    .sort({ poem_title : 1}) // sort by ascending alphabetical
+    .collation({ locale: 'en'}); // case-insensitive collation
 });
 
 
 // Search for poem by title
 poemRoutes.route('/:title').get(function(req, res) {
-    console.log('Querying for: ' + req.params.title);
+    console.log('>> Querying for poem: ' + req.params.title);
     Poem.findOne({ poem_title: req.params.title}, function(err, poem) {
         if(err) { return res.send(err); }
         else { res.json(poem); }
@@ -40,5 +43,5 @@ poemRoutes.route('/:title').get(function(req, res) {
 app.use('/poems', poemRoutes)
 
 app.listen(PORT, function() {
-    console.log(">> Server is running on port " + PORT + " <<");
+    console.log('>> Server is running on port ' + PORT);
 });
