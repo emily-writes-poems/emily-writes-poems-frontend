@@ -28,7 +28,7 @@ export default class PoemsList extends Component {
         // map each poem to its own Link
         return(this.state.poems.map((poem) =>
             <li>
-                <Link className='link-style' key={poem.poem_title} to={'/poem/' + poem.poem_title}>{poem.poem_title}</Link>
+                <Link className='link-style' key={poem.poem_id} to={'/poem/' + poem.poem_id}>{poem.poem_title}</Link>
             </li>
         ));
     }
@@ -39,7 +39,6 @@ export default class PoemsList extends Component {
             <div className='container-fluid page'>
                 <div className='container'>
                     <Header />
-                    <hr />
                     <p className='about'>I've written some poems. Some about myself. Some about the world as I see it. And many about the people and worlds that I've created and imagined.</p>
                </div>
                <div className='container poemslist'>

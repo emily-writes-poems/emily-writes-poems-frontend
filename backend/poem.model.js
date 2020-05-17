@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 let Poem = new Schema(
     {
+       poem_id : {
+           type: String
+       },
        poem_title: {
            type: String
        },

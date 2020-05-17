@@ -33,7 +33,7 @@ html, .page {
 }
 
 /* POEM PAGE*/
-.poem-header h4 {
+.poem-header h3 {
     font-family: 'Oxygen';
     color: #5B58BB;
 }
@@ -47,7 +47,11 @@ html, .page {
     white-space: pre-wrap;
 }
 
-.similarpoems h5 {
+.poemdetails h6{
+    font-family: 'Open Sans';
+}
+
+.similarpoems h6 {
     font-family: 'Open Sans';
 }
 

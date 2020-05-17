@@ -10,8 +10,7 @@ class App extends React.Component{
         return(
             <Router>
                 <Route path='/' exact component={PoemsList} />
-                <Route path='/poem/:title' component={Poem} />
-                <Route path='/poem/:title/details' component={PoemDetails} />
+                <Route path='/poem/:poem_id' component={Poem} />
             </Router>
         );
     }

@@ -30,10 +30,10 @@ poemRoutes.route('/').get(function(req, res) {
 });
 
 
-// Search for poem by title
-poemRoutes.route('/:title').get(function(req, res) {
-    console.log('>> Querying for poem: ' + req.params.title);
-    Poem.findOne({ poem_title: req.params.title}, function(err, poem) {
+// Search for poem by ID
+poemRoutes.route('/:poem_id').get(function(req, res) {
+    console.log('>> Querying for poem: ' + req.params.poem_id);
+    Poem.findOne({ poem_id: req.params.poem_id}, function(err, poem) {
         if(err) { return res.send(err); }
         else { res.json(poem); }
     });
