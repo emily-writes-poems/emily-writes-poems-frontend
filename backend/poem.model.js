@@ -20,6 +20,12 @@ let Poem = new Schema(
        },
        poem_linecount: {
            type: Number
+       },
+       poem_behind_title: {
+           type: String
+       },
+       poem_behind_poem: {
+           type: String
        }
    },
    { collection: 'poems-list'}
