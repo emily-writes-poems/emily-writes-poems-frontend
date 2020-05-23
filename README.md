@@ -1,4 +1,4 @@
-# Emily Writes Poems
+![Emily Writes Poems. A collection of my poems.](./images/ewp.png)
 
 ## What's this project?
 *I write poetry.*  
