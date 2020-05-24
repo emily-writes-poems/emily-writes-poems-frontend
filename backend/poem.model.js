@@ -26,7 +26,10 @@ let Poem = new Schema(
        },
        poem_behind_poem: {
            type: String
-       }
+       },
+       similar_poems : [{
+           type: String
+       }]
    },
    { collection: 'poems-list'}
 );

@@ -18,7 +18,8 @@ export default class Poem extends Component {
             linecount : 0,
             wordcount : 0,
             behind_title : '',
-            behind_poem : ''
+            behind_poem : '',
+            similar_poems : []
         };
     }
 
@@ -35,7 +36,8 @@ export default class Poem extends Component {
                     linecount : response.data.poem_linecount,
                     wordcount : response.data.poem_wordcount,
                     behind_title : response.data.poem_behind_title,
-                    behind_poem : response.data.poem_behind_poem
+                    behind_poem : response.data.poem_behind_poem,
+                    similar_poems : ['placeholder1', 'placeholder2', 'placeholder3']
                 });
                 console.log(this.state)
             })
@@ -66,22 +68,22 @@ export default class Poem extends Component {
         return (
             <div>
                 <h6>Behind the title</h6>
-                <p>{this.state.behind_title}</p>
+                <p><Markdown source={this.state.behind_title}/></p>
                 <h6>Behind the poem</h6>
-                <p>{this.state.behind_poem}</p>
-                {this.state.linecount} lines<br />
-                {this.state.wordcount} words
+                <p><Markdown source={this.state.behind_poem}/></p>
+                <p>{this.state.linecount} lines</p>
+                <p>{this.state.wordcount} words</p>
             </div>
-        )
+        );
     }
 
 
     similarPoems() {
         return(
             <ul>
-                <li><Link className='link-style no-td' to=''>poem1 goes here</Link></li>
-                <li><Link className='link-style no-td' to=''>poem2 goes here</Link></li>
-                <li><Link className='link-style no-td' to=''>poem3 goes here</Link></li>
+                <li><Link className='link-style no-td' to={this.state.similar_poems[0]}>{this.state.similar_poems[0]}</Link></li>
+                <li><Link className='link-style no-td' to={this.state.similar_poems[1]}>{this.state.similar_poems[1]}</Link></li>
+                <li><Link className='link-style no-td' to={this.state.similar_poems[2]}>{this.state.similar_poems[2]}</Link></li>
             </ul>
         );
     }
