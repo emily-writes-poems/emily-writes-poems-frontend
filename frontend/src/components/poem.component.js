@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 import Header from './header';
 
@@ -22,7 +23,6 @@ export default class Poem extends Component {
             similar_poems : []
         };
     }
-
 
     componentDidMount() {
         // get poem data from Mongo
@@ -68,11 +68,14 @@ export default class Poem extends Component {
         return (
             <div>
                 <h6>Behind the title</h6>
-                <p><Markdown source={this.state.behind_title}/></p>
+                <Markdown source={this.state.behind_title && this.state.behind_title}/>
                 <h6>Behind the poem</h6>
-                <p><Markdown source={this.state.behind_poem}/></p>
-                <p>{this.state.linecount} lines</p>
-                <p>{this.state.wordcount} words</p>
+                <Markdown source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
+                <p>
+                    {this.state.linecount} lines
+                    <br />
+                    {this.state.wordcount} words
+                </p>
             </div>
         );
     }
@@ -91,6 +94,9 @@ export default class Poem extends Component {
     render() {
         return (
             <div className='container-fluid page'>
+                <Helmet>
+                    <title>{this.state.title} | Emily Writes Poems</title>
+                </Helmet>
                 <div className='container'>
                     <Header />
                     <div className='poem-header my-4'>

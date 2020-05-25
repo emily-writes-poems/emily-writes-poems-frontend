@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 import Header from './header';
 
@@ -37,6 +38,9 @@ export default class PoemsList extends Component {
     render() {
         return (
             <div className='container-fluid page'>
+                <Helmet>
+                    <title>Emily Writes Poems</title>
+                </Helmet>
                 <div className='container'>
                     <Header />
                     <p className='about'>I've written some poems. Some about myself. Some about the world as I see it. And many about the people and worlds that I've created and imagined.</p>
