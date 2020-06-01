@@ -29,7 +29,11 @@ let Poem = new Schema(
        },
        similar_poems : [{
            type: String
-       }]
+       }],
+       top_words : {
+           word : String,
+           freq : Number
+       }
    },
    { collection: 'poems-list'}
 );

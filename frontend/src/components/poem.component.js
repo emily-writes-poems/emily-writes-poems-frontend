@@ -20,7 +20,8 @@ export default class Poem extends Component {
             wordcount : 0,
             behind_title : '',
             behind_poem : '',
-            similar_poems : []
+            similar_poems : [],
+            top_words : ''
         };
     }
 
@@ -37,8 +38,10 @@ export default class Poem extends Component {
                     wordcount : response.data.poem_wordcount,
                     behind_title : response.data.poem_behind_title,
                     behind_poem : response.data.poem_behind_poem,
-                    similar_poems : ['placeholder1', 'placeholder2', 'placeholder3']
+                    similar_poems : ['placeholder1', 'placeholder2', 'placeholder3'],
+                    top_words : response.data.top_words
                 });
+                console.log(typeof(this.state.top_words))
                 console.log(this.state)
             })
             .catch(function (error) {
@@ -54,9 +57,9 @@ export default class Poem extends Component {
 
         for(i=0; i < this.state.text.length; i++){
             if(this.state.text[i] === ''){
-                ret = ret + '<br />'
+                ret = ret + '<br />'  // have an actual line break
             } else {
-                ret = ret + this.state.text[i].replace(/\t/g, '\u0009') + '\n';
+                ret = ret + this.state.text[i].replace(/\t/g, '\u0009') + '\n';  // replace tab characters
             }
         }
         console.log(ret)
@@ -91,6 +94,15 @@ export default class Poem extends Component {
         );
     }
 
+
+    topWords() {
+        var ret = '';
+        for (var word in this.state.top_words) {
+            console.log(word)
+            ret = ret + word + ' : '+ this.state.top_words[word] + '<br />';
+        }
+        return(ret);
+    }
     render() {
         return (
             <div className='container-fluid page'>
@@ -111,10 +123,12 @@ export default class Poem extends Component {
                     <hr />
                     <h6>Toggle poem details link goes here</h6>
                     {this.poemDetails()}
-                </div>
-                <div className='container similarpoems mt-5'>
+                    <h6>Top words</h6>
+                    <Markdown source={this.topWords()} escapeHtml={false}/>
                     <h6>Similar poems</h6>
-                    {this.similarPoems()}
+                    <div className='similarpoems'>
+                        {this.similarPoems()}
+                    </div>
                 </div>
             </div>
         );
