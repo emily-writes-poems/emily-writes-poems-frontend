@@ -33,6 +33,7 @@ poemRoutes.route('/:poem_id').get(function(req, res) {
     console.log('>> Querying for poem: ' + req.params.poem_id);
     Poem.findOne({ poem_id: req.params.poem_id}, function(err, poem) {
         if(err) { return res.send(err); }
+        else if (poem === null) { return null; }
         else { res.json(poem); }
     });
 });

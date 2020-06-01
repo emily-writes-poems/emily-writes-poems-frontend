@@ -1,15 +1,15 @@
 /* FONT + COLOR VARIABLES */
-$background: #F8F8FF
-$accent-1: #5B58BB
-$accent-2: #454545
+$color-background: #F8F8FF
+$color-accent-1: #5B58BB
+$color-accent-2: #454545
 
 /* GLOBAL STYLES */
 html, .page
-    background-color: $background
+    background-color: $color-background
     font-size: 16px
 
 .link-style, .link-style:hover
-    color: $accent-1
+    color: $color-accent-1
 
 .no-td, .no-td:hover
     text-decoration: none
@@ -22,12 +22,12 @@ html, .page
 
 .page-header h5
     font-family: 'Open Sans'
-    color: $accent-2
+    color: $color-accent-2
 
 
 /* HOMEPAGE */
 .header-2
-    color: $accent-2
+    color: $color-accent-2
 
 
 .about
@@ -41,11 +41,11 @@ html, .page
 /* POEM PAGE*/
 .poem-header h3
     font-family: 'Oxygen'
-    color: $accent-1
-
+    color: $color-accent-1
 
 .poem-header h6
     font-family: 'Open Sans'
+    font-weight: 300
 
 
 .poemtext
@@ -53,24 +53,27 @@ html, .page
     white-space: pre-wrap
 
 
+.poemdetails
+    font-family: 'Oxygen'
+
 .poemdetails h6
+    color: $color-accent-1
     font-family: 'Open Sans'
+    font-weight: 300
+    margin-bottom: 0
 
-
-.similarpoems h6
-    font-family: 'Open Sans'
-
+.poemdetails .count
+    
 
 .similarpoems ul
     list-style-type: none
     padding-left: 0
-
 
 .similarpoems li
     font-family: 'Oxygen'
     display: inline-block
     border: 2px solid
     border-radius: 5px
+    border-color: $color-accent-2
     padding: 5px
     margin-right: 20px
-    color: $accent-1

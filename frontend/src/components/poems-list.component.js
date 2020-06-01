@@ -28,8 +28,8 @@ export default class PoemsList extends Component {
     poemsList() {
         // map each poem to its own Link
         return(this.state.poems.map((poem) =>
-            <li>
-                <Link className='link-style' key={poem.poem_id} to={'/poem/' + poem.poem_id}>{poem.poem_title}</Link>
+            <li key={poem.poem_id}>
+                <Link className='link-style' to={'/poem/' + poem.poem_id}>{poem.poem_title}</Link>
             </li>
         ));
     }
