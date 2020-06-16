@@ -46,10 +46,14 @@ export default class Poem extends Component {
                     console.log(this.state)
                 }
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
+                if (error.response.data.message === 'poem not found'){
+                    console.log('Server unable to find requested poem.')
+                }
+                this.setState({ id: 'null poem'});
             });
-    }
+        }
 
 
     poemText() {
@@ -104,15 +108,32 @@ export default class Poem extends Component {
                 <Markdown source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
 
                 <h6>Lines</h6>
-                <p class="count">{this.state.linecount}</p>
+                <p className="count">{this.state.linecount}</p>
 
                 <h6>Words</h6>
-                <p class="count">{this.state.wordcount}</p>
+                <p className="count">{this.state.wordcount}</p>
 
                 <h6>Top words</h6>
                 <Markdown source={this.topWords()} escapeHtml={false}/>
 
                 {this.similarPoems()}
+            </div>
+        );
+    }
+
+
+    loadingPage() {
+        return (
+            <div className='container-fluid page'>
+                <Helmet>
+                    <title>Loading ... | Emily Writes Poems</title>
+                </Helmet>
+                <div className='container'>
+                    <Header />
+                    <div className='poem-header my-4'>
+                        <h3>Loading ...</h3>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -138,7 +159,11 @@ export default class Poem extends Component {
 
 
     render() {
-        if (this.state.id) {
+        // While loading
+        if (!this.state.id) { return (<div>{this.loadingPage()}</div>); }
+
+        // Poem found
+        if (this.state.id && this.state.id!=='null poem') {
             return (
                 <div className='container-fluid page'>
                     <Helmet>
@@ -159,9 +184,9 @@ export default class Poem extends Component {
                     </div>
                 </div>
             );
-        } else {
-            return (<div>{this.poemErrorPage()}</div>);
-        }
+
+        // Poem not found
+        } else { return (<div>{this.poemErrorPage()}</div>); }
 
     }
 }
