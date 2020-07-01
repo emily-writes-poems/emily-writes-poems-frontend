@@ -5,6 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import PoemsList from './components/poems-list.component';
 import Poem from './components/poem.component';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+library.add(faSun, faMoon);
+
+
 class App extends React.Component{
     render(){
         return(
