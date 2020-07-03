@@ -48,10 +48,14 @@ export default class Poem extends Component {
                     });
                 }
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
+                if (error.response.data.message === 'poem not found'){
+                    console.log('Server unable to find requested poem.')
+                }
+                this.setState({ id: 'null poem'});
             });
-    }
+        }
 
 
     changeTheme() {
@@ -133,6 +137,23 @@ export default class Poem extends Component {
     }
 
 
+    loadingPage() {
+        return (
+            <div className='container-fluid page'>
+                <Helmet>
+                    <title>Loading ... | Emily Writes Poems</title>
+                </Helmet>
+                <div className='container'>
+                    <Header />
+                    <div className='poem-header my-4'>
+                        <h3>Loading ...</h3>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
     poemErrorPage() {
         return (
             <div className='container-fluid page night'>
@@ -152,7 +173,11 @@ export default class Poem extends Component {
     }
 
     render() {
-        if (this.state.id) {
+        // While loading
+        if (!this.state.id) { return (<div>{this.loadingPage()}</div>); }
+
+        // Poem found
+        if (this.state.id && this.state.id!=='null poem') {
             return (
                 <div className={this.state.nightmode ? 'page night':'page'}>
                     <Helmet>
@@ -175,9 +200,9 @@ export default class Poem extends Component {
                     </div>
                 </div>
             );
-        } else {
-            return (<div>{this.poemErrorPage()}</div>);
-        }
+
+        // Poem not found
+        } else { return (<div>{this.poemErrorPage()}</div>); }
 
     }
 }
