@@ -1,11 +1,43 @@
 /* FONT + COLOR VARIABLES */
+$font-1: 'Merriweather'
+$font-2: 'Oxygen'
+$font-3: 'Open Sans'
+
 $color-background: #F8F8FF
 $color-accent-1: #5B58BB
 $color-accent-2: #454545
 
+$color-background-night: #291d38
+$color-text-night: #b2a9c3
+$color-text-glow-night: #cecbd4
+$color-accent-night: #8a88d2
+
+
+/* NIGHT THEME */
+.night
+    background-color: $color-background-night
+    color: $color-text-night
+    .poemtext
+        text-shadow: 0px 2px 15px $color-text-glow-night
+    .similarpoems li
+        color: $color-accent-night
+    hr
+        background-color: $color-text-glow-night
+
+
 /* GLOBAL STYLES */
-html, .page
+html
+    margin: 0
+    height: 100%
     background-color: $color-background
+
+.page
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    overflow: auto
     font-size: 16px
 
 .link-style, .link-style:hover
@@ -14,58 +46,51 @@ html, .page
 .no-td, .no-td:hover
     text-decoration: none
 
-h6
-    font-family: 'Open Sans'
+.color-accent-1
+    color: $color-accent-1
 
-/* HEADER */
-.page-header h1
-    font-family: 'Oxygen'
-
-
-.page-header h5
-    font-family: 'Open Sans'
+.color-accent-2
     color: $color-accent-2
 
+.font-1
+    font-family: $font-1, serif
 
-/* HOMEPAGE */
-.header-2
-    color: $color-accent-2
+.font-2
+    font-family: $font-2, sans-serif
 
+.font-3
+    font-family: $font-3, sans-serif
 
-.about
-    font-family: 'Merriweather', serif
+.theme-switcher
+    position: fixed
+    right: 3%
+    bottom: 3%
+    font-size: 40px
 
+.dark-mode
+    background-color: orange
+    color: green
 
-.poemslist
-    font-family: 'Oxygen', sans-serif
+.light-mode
+    background-color: blue
+    color: red
 
 
 /* POEM PAGE*/
 .poem-header h3
     font-family: 'Oxygen'
-    color: $color-accent-1
 
 .poem-header h6
     font-family: 'Open Sans'
     font-weight: 300
 
-
 .poemtext
     font-family: 'Merriweather', serif
     white-space: pre-wrap
 
-
-.poemdetails
-    font-family: 'Oxygen'
-
 .poemdetails h6
-    color: $color-accent-1
-    font-family: 'Open Sans'
     font-weight: 300
     margin-bottom: 0
-
-.poemdetails .count
-
 
 .similarpoems ul
     list-style-type: none

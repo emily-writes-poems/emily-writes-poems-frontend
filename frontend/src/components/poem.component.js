@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import temp_image from '../images/temp_image.jpg'
 
 import Header from './header';
+import ThemeSwitcher from './theme-switcher';
 
 const Markdown = require('react-markdown/with-html');
 
@@ -23,7 +24,9 @@ export default class Poem extends Component {
             behind_poem : '',
             similar_poems : [],
             top_words : [],
-        };
+            nightmode: false
+        }
+        this.changeTheme = this.changeTheme.bind(this);
     }
 
     componentDidMount() {
@@ -43,7 +46,6 @@ export default class Poem extends Component {
                         similar_poems : ['placeholder1', 'placeholder2', 'placeholder3'],
                         top_words : response.data.top_words,
                     });
-                    console.log(this.state)
                 }
             })
             .catch((error) => {
@@ -54,6 +56,21 @@ export default class Poem extends Component {
                 this.setState({ id: 'null poem'});
             });
         }
+
+
+    changeTheme() {
+        if(this.state.nightmode) {
+            this.setState({
+                nightmode: false,
+            })
+        }
+        else {
+            this.setState({
+                nightmode: true,
+            })
+        }
+        console.log(this.state.nightmode);
+    }
 
 
     poemText() {
@@ -68,7 +85,6 @@ export default class Poem extends Component {
                 ret = ret + this.state.text[i].replace(/\t/g, '\u0009') + '\n';  // replace tab characters
             }
         }
-        console.log(ret)
         return(ret);
     }
 
@@ -76,7 +92,6 @@ export default class Poem extends Component {
     topWords() {
         var ret = '';
         for (var word in this.state.top_words) {
-            console.log(word)
             ret = ret + word + ' : '+ this.state.top_words[word] + '<br />';
         }
         return(ret);
@@ -86,7 +101,7 @@ export default class Poem extends Component {
     similarPoems() {
         return (
             <div className='similarpoems'>
-                <h6>Similar poems</h6>
+                <h6 className="font-2">Similar poems</h6>
                 <ul>
                     <li><Link className='link-style no-td' to={this.state.similar_poems[0]}>{this.state.similar_poems[0]}</Link></li>
                     <li><Link className='link-style no-td' to={this.state.similar_poems[1]}>{this.state.similar_poems[1]}</Link></li>
@@ -101,20 +116,20 @@ export default class Poem extends Component {
         return (
             <div>
                 <hr />
-                <h6>Behind the title</h6>
+                <h6 className="font-2 color-accent-1">Behind the title</h6>
                 <Markdown source={this.state.behind_title && this.state.behind_title}/>
 
-                <h6>Behind the poem</h6>
+                <h6 className="font-2 color-accent-1">Behind the poem</h6>
                 <Markdown source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
 
-                <h6>Lines</h6>
+                <h6 className="font-2 color-accent-1">Lines</h6>
                 <p className="count">{this.state.linecount}</p>
 
-                <h6>Words</h6>
+                <h6 className="font-2 color-accent-1">Words</h6>
                 <p className="count">{this.state.wordcount}</p>
 
-                <h6>Top words</h6>
-                <Markdown source={this.topWords()} escapeHtml={false}/>
+                {this.topWords() && <><h6 className="font-2 color-accent-1">Top words</h6>
+                 <Markdown source={this.topWords()} escapeHtml={false}/></>}
 
                 {this.similarPoems()}
             </div>
@@ -141,7 +156,7 @@ export default class Poem extends Component {
 
     poemErrorPage() {
         return (
-            <div className='container-fluid page'>
+            <div className='container-fluid page night'>
                 <Helmet>
                     <title>Poem not found | Emily Writes Poems</title>
                 </Helmet>
@@ -157,7 +172,6 @@ export default class Poem extends Component {
         );
     }
 
-
     render() {
         // While loading
         if (!this.state.id) { return (<div>{this.loadingPage()}</div>); }
@@ -165,21 +179,23 @@ export default class Poem extends Component {
         // Poem found
         if (this.state.id && this.state.id!=='null poem') {
             return (
-                <div className='container-fluid page'>
+                <div className={this.state.nightmode ? 'page night':'page'}>
                     <Helmet>
                         <title>{this.state.title} | Emily Writes Poems</title>
                     </Helmet>
+                    <ThemeSwitcher className="theme-switcher" onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
+
                     <div className='container'>
                         <Header />
                         <div className='poem-header my-4'>
-                            <h3>{this.state.title}</h3>
+                            <h3 className="color-accent-1">{this.state.title}</h3>
                             <h6>Emily Lau ~ {this.state.date}</h6>
                         </div>
                     </div>
                     <div className='container poemtext mt-5'>
                         <Markdown source={this.poemText()} escapeHtml={false}/>
                     </div>
-                    <div className='container poemdetails mt-5'>
+                    <div className='container poemdetails font-2 mt-5'>
                         {this.poemDetails()}
                     </div>
                 </div>
