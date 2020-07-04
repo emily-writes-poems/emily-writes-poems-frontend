@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
-import Header from './header';
 import ThemeSwitcher from './theme-switcher';
 
 
@@ -60,7 +59,6 @@ export default class PoemsList extends Component {
                 </Helmet>
                 <ThemeSwitcher className="theme-switcher" onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
                 <div className='container'>
-                    <Header />
                     <p className='font-1'>I've written some poems. Some about myself. Some about the world as I see it. And many about the people and worlds that I've created and imagined.</p>
                </div>
                <div className='container font-2'>

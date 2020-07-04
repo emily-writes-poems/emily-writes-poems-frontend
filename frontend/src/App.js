@@ -1,6 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Header from './components/header';
+import Footer from './components/footer';
 
 import PoemsList from './components/poems-list.component';
 import Poem from './components/poem.component';
@@ -14,8 +17,14 @@ class App extends React.Component{
     render(){
         return(
             <Router>
-                <Route path='/' exact component={PoemsList} />
-                <Route path='/poem/:poem_id' component={Poem} />
+                <div>
+                    <Header />
+                    <Switch>
+                        <Route path='/' exact component={PoemsList} />
+                        <Route path='/poem/:poem_id' component={Poem} />
+                    </Switch>
+                    <Footer />
+                </div>
             </Router>
         );
     }

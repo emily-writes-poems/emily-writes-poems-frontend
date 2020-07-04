@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
-import temp_image from '../images/temp_image.jpg'
+import { Button } from 'react-bootstrap';
 
-import Header from './header';
 import ThemeSwitcher from './theme-switcher';
 
 const Markdown = require('react-markdown/with-html');
@@ -30,20 +29,6 @@ export default class Poem extends Component {
     }
 
 
-    componentDidMount() {
-        this.getPoemData();
-    }
-
-
-    componentDidUpdate(prevProps) {
-        var oldID = prevProps.match.params.poem_id;
-        var newID = this.props.match.params.poem_id;
-        if(newID !== oldID) {
-            this.getPoemData();
-        }
-    }
-
-
     getPoemData() {
         // get poem data from Mongo
         axios.get('http://localhost:3456/poems/' + this.props.match.params.poem_id)
@@ -58,10 +43,11 @@ export default class Poem extends Component {
                     wordcount : response.data.poem_wordcount,
                     behind_title : response.data.poem_behind_title,
                     behind_poem : response.data.poem_behind_poem,
-                    similar_poems_ids : response.data.similar_poems,
+                    similar_poems_ids : response.data.similar_poems_ids,
                     similar_poems_titles: response.data.similar_poems_titles,
                     top_words : response.data.top_words,
                 });
+                //console.log(this.state)
             }
         })
         .catch((error) => {
@@ -71,7 +57,23 @@ export default class Poem extends Component {
             }
             this.setState({ id: 'null poem'});
         });
-        window.scrollTo(0,0);
+
+        // this irritating line is so that it'll scroll back up to the top
+        document.querySelector('.page').scrollTop = 0;
+    }
+
+
+    componentDidMount() {
+        this.getPoemData();
+    }
+
+
+    componentDidUpdate(prevProps) {
+        var oldID = prevProps.match.params.poem_id;
+        var newID = this.props.match.params.poem_id;
+        if(newID !== oldID) {
+            this.getPoemData();
+        }
     }
 
 
@@ -118,11 +120,22 @@ export default class Poem extends Component {
     similarPoems() {
         return (
             <div className='similarpoems'>
-                <h6 className="font-2">Similar poems</h6>
+                <h6 className="font-2 color-accent-1">similar poems.</h6>
                 <ul>
-                    <li><Link className='link-style no-td' to={this.state.similar_poems_ids[0]}>{this.state.similar_poems_titles[0]}</Link></li>
-                    <li><Link className='link-style no-td' to={this.state.similar_poems_ids[1]}>{this.state.similar_poems_titles[1]}</Link></li>
-                    <li><Link className='link-style no-td' to={this.state.similar_poems_ids[2]}>{this.state.similar_poems_titles[2]}</Link></li>
+                    <li>
+                        <Link className='link-style no-td' to={this.state.similar_poems_ids[0]}>
+                            <Button className="button">{this.state.similar_poems_titles[0]}</Button>
+                        </Link></li>
+                    <li>
+                        <Link className='link-style no-td' to={this.state.similar_poems_ids[1]}>
+                            <Button className="button">{this.state.similar_poems_titles[1]}</Button>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link className='link-style no-td' to={this.state.similar_poems_ids[2]}>
+                            <Button className="button">{this.state.similar_poems_titles[2]}</Button>
+                        </Link>
+                   </li>
                 </ul>
             </div>
         );
@@ -133,19 +146,19 @@ export default class Poem extends Component {
         return (
             <div>
                 <hr />
-                <h6 className="font-2 color-accent-1">Behind the title</h6>
+                <h6 className="font-2 color-accent-1">behind the title.</h6>
                 <Markdown source={this.state.behind_title && this.state.behind_title}/>
 
-                <h6 className="font-2 color-accent-1">Behind the poem</h6>
+                <h6 className="font-2 color-accent-1">behind the poem.</h6>
                 <Markdown source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
 
-                <h6 className="font-2 color-accent-1">Lines</h6>
+                <h6 className="font-2 color-accent-1">lines.</h6>
                 <p className="count">{this.state.linecount}</p>
 
-                <h6 className="font-2 color-accent-1">Words</h6>
+                <h6 className="font-2 color-accent-1">words.</h6>
                 <p className="count">{this.state.wordcount}</p>
 
-                {this.topWords() && <><h6 className="font-2 color-accent-1">Top words</h6>
+                {this.topWords() && <><h6 className="font-2 color-accent-1">top words.</h6>
                  <Markdown source={this.topWords()} escapeHtml={false}/></>}
 
                 {this.similarPoems()}
@@ -161,7 +174,6 @@ export default class Poem extends Component {
                     <title>Loading ... | Emily Writes Poems</title>
                 </Helmet>
                 <div className='container'>
-                    <Header />
                     <div className='poem-header my-4'>
                         <h3>Loading ...</h3>
                     </div>
@@ -178,12 +190,10 @@ export default class Poem extends Component {
                     <title>Poem not found | Emily Writes Poems</title>
                 </Helmet>
                 <div className='container'>
-                    <Header />
                     <div className='poem-header my-4'>
                         <h3>Poem not found</h3>
                         <h6>Sorry, the poem you requested could not be found.</h6>
                     </div><br />
-                <img src={temp_image} width="200px"/>
                 </div>
             </div>
         );
@@ -200,10 +210,7 @@ export default class Poem extends Component {
                     <Helmet>
                         <title>{this.state.title} | Emily Writes Poems</title>
                     </Helmet>
-                    <ThemeSwitcher className="theme-switcher" onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
-
                     <div className='container'>
-                        <Header />
                         <div className='poem-header my-4'>
                             <h3 className="color-accent-1">{this.state.title}</h3>
                             <h6>Emily Lau ~ {this.state.date}</h6>
@@ -215,6 +222,7 @@ export default class Poem extends Component {
                     <div className='container poemdetails font-2 mt-5'>
                         {this.poemDetails()}
                     </div>
+                    <ThemeSwitcher className="theme-switcher" onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
                 </div>
             );
 
