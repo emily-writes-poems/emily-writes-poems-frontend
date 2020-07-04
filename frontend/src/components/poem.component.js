@@ -29,33 +29,50 @@ export default class Poem extends Component {
         this.changeTheme = this.changeTheme.bind(this);
     }
 
+
     componentDidMount() {
+        this.getPoemData();
+    }
+
+
+    componentDidUpdate(prevProps) {
+        var oldID = prevProps.match.params.poem_id;
+        var newID = this.props.match.params.poem_id;
+        if(newID !== oldID) {
+            this.getPoemData();
+        }
+    }
+
+
+    getPoemData() {
         // get poem data from Mongo
         axios.get('http://localhost:3456/poems/' + this.props.match.params.poem_id)
-            .then(response => {
-                if(response != null){
-                    this.setState({
-                        id : this.props.match.params.poem_id,
-                        date : response.data.poem_date,
-                        title : response.data.poem_title,
-                        text : response.data.poem_text,
-                        linecount : response.data.poem_linecount,
-                        wordcount : response.data.poem_wordcount,
-                        behind_title : response.data.poem_behind_title,
-                        behind_poem : response.data.poem_behind_poem,
-                        similar_poems : ['placeholder1', 'placeholder2', 'placeholder3'],
-                        top_words : response.data.top_words,
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                if (error.response.data.message === 'poem not found'){
-                    console.log('Server unable to find requested poem.')
-                }
-                this.setState({ id: 'null poem'});
-            });
-        }
+        .then(response => {
+            if(response != null){
+                this.setState({
+                    id : this.props.match.params.poem_id,
+                    date : response.data.poem_date,
+                    title : response.data.poem_title,
+                    text : response.data.poem_text,
+                    linecount : response.data.poem_linecount,
+                    wordcount : response.data.poem_wordcount,
+                    behind_title : response.data.poem_behind_title,
+                    behind_poem : response.data.poem_behind_poem,
+                    similar_poems_ids : response.data.similar_poems,
+                    similar_poems_titles: response.data.similar_poems_titles,
+                    top_words : response.data.top_words,
+                });
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            if (error.response.data.message === 'poem not found'){
+                console.log('Server unable to find requested poem.')
+            }
+            this.setState({ id: 'null poem'});
+        });
+        window.scrollTo(0,0);
+    }
 
 
     changeTheme() {
@@ -76,7 +93,7 @@ export default class Poem extends Component {
     poemText() {
         // make an array that has each line
         var i;
-        var ret = ''
+        var ret = '';
 
         for(i=0; i < this.state.text.length; i++){
             if(this.state.text[i] === ''){
@@ -103,9 +120,9 @@ export default class Poem extends Component {
             <div className='similarpoems'>
                 <h6 className="font-2">Similar poems</h6>
                 <ul>
-                    <li><Link className='link-style no-td' to={this.state.similar_poems[0]}>{this.state.similar_poems[0]}</Link></li>
-                    <li><Link className='link-style no-td' to={this.state.similar_poems[1]}>{this.state.similar_poems[1]}</Link></li>
-                    <li><Link className='link-style no-td' to={this.state.similar_poems[2]}>{this.state.similar_poems[2]}</Link></li>
+                    <li><Link className='link-style no-td' to={this.state.similar_poems_ids[0]}>{this.state.similar_poems_titles[0]}</Link></li>
+                    <li><Link className='link-style no-td' to={this.state.similar_poems_ids[1]}>{this.state.similar_poems_titles[1]}</Link></li>
+                    <li><Link className='link-style no-td' to={this.state.similar_poems_ids[2]}>{this.state.similar_poems_titles[2]}</Link></li>
                 </ul>
             </div>
         );

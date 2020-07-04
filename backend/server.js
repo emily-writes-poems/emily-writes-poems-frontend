@@ -16,6 +16,7 @@ mongoose.connect(db_uri, { useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => console.log('>> Successfully established MongoDB connection!'))
 .catch(err => console.error('>> Could not connect to MongoDB!'))
 
+
 // Get all poems
 poemRoutes.route('/').get(function(req, res) {
     console.log('>> Fetching all poems')
