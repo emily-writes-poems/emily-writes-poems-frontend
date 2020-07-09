@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Button } from 'react-bootstrap';
 
+import Header from './header';
+import Footer from './footer';
 import ThemeSwitcher from './theme-switcher';
 
 const Markdown = require('react-markdown/with-html');
@@ -190,10 +192,12 @@ export default class Poem extends Component {
                     <title>Poem not found | Emily Writes Poems</title>
                 </Helmet>
                 <div className='container'>
+                    <Header />
                     <div className='poem-header my-4'>
                         <h3>Poem not found</h3>
                         <h6>Sorry, the poem you requested could not be found.</h6>
-                    </div><br />
+                    </div>
+                    <Footer />
                 </div>
             </div>
         );
@@ -207,6 +211,7 @@ export default class Poem extends Component {
         if (this.state.id && this.state.id!=='null poem') {
             return (
                 <div className={this.state.nightmode ? 'page night':'page'}>
+                    <Header />
                     <Helmet>
                         <title>{this.state.title} | Emily Writes Poems</title>
                     </Helmet>
@@ -222,7 +227,8 @@ export default class Poem extends Component {
                     <div className='container poemdetails font-2 mt-5'>
                         {this.poemDetails()}
                     </div>
-                    <ThemeSwitcher className="theme-switcher" onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
+                    <Footer/>
+                    <ThemeSwitcher onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
                 </div>
             );
 

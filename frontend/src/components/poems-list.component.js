@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
+import Header from './header';
+import Footer from './footer';
 import ThemeSwitcher from './theme-switcher';
 
 
@@ -57,7 +59,7 @@ export default class PoemsList extends Component {
                 <Helmet>
                     <title>Emily Writes Poems</title>
                 </Helmet>
-                <ThemeSwitcher className="theme-switcher" onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
+                <Header />
                 <div className='container'>
                     <p className='font-1'>I've written some poems. Some about myself. Some about the world as I see it. And many about the people and worlds that I've created and imagined.</p>
                </div>
@@ -65,6 +67,8 @@ export default class PoemsList extends Component {
                    <h2 className='color-accent-2 my-4' align='center'>my poems.</h2>
                    <ul>{this.poemsList()}</ul>
                </div>
+               <Footer />
+               <ThemeSwitcher onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
             </div>
         )
     }
