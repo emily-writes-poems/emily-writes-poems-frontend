@@ -10,7 +10,8 @@ let Poem = require('./poem.model');
 app.use(cors());
 app.use(bodyParser.json());
 
-let db_uri = 'mongodb://127.0.0.1:27017/poems'
+const config_file = require('./config.json')
+let db_uri = config_file["connection_uri"]
 
 mongoose.connect(db_uri, { useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => console.log('>> Successfully established MongoDB connection!'))
