@@ -1,19 +1,21 @@
+require('dotenv').config();
+const path = require('path');
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const PORT = 3456;
 const poemRoutes = express.Router();
 
 let Poem = require('./poem.model');
 app.use(cors());
 app.use(bodyParser.json());
 
-const config_file = require('./config.json')
-let db_uri = config_file["connection_uri"]
+let PORT = process.env.PORT;
+let DB_URI = process.env.CONNECTION_URI;
 
-mongoose.connect(db_uri, { useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => console.log('>> Successfully established MongoDB connection!'))
 .catch(err => console.error('>> Could not connect to MongoDB!'))
 
@@ -40,8 +42,12 @@ poemRoutes.route('/:poem_id').get(function(req, res) {
     });
 });
 
-
+app.use(express.static(path.join(__dirname, "client", "build")))
 app.use('/poems', poemRoutes)
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(PORT, function() {
     console.log('>> Server is running on port ' + PORT);
