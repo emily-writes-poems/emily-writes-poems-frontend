@@ -33,7 +33,7 @@ export default class Poem extends Component {
 
     getPoemData() {
         // get poem data from Mongo
-        axios.get('http://localhost:3456/poems/' + this.props.match.params.poem_id)
+        axios.get('/poems/' + this.props.match.params.poem_id)
         .then(response => {
             if(response != null){
                 this.setState({
