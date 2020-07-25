@@ -24,10 +24,8 @@ export default class Poem extends Component {
             behind_title : '',
             behind_poem : '',
             similar_poems : [],
-            top_words : [],
-            nightmode: false
+            top_words : []
         }
-        this.changeTheme = this.changeTheme.bind(this);
     }
 
 
@@ -61,8 +59,8 @@ export default class Poem extends Component {
         });
 
         // this irritating line is so that it'll scroll back up to the top
-        document.querySelector('.page').scrollTop = 0;
-    }
+        window.scrollTo(0,0);
+}
 
 
     componentDidMount() {
@@ -76,21 +74,6 @@ export default class Poem extends Component {
         if(newID !== oldID) {
             this.getPoemData();
         }
-    }
-
-
-    changeTheme() {
-        if(this.state.nightmode) {
-            this.setState({
-                nightmode: false,
-            })
-        }
-        else {
-            this.setState({
-                nightmode: true,
-            })
-        }
-        console.log(this.state.nightmode);
     }
 
 
@@ -171,7 +154,7 @@ export default class Poem extends Component {
 
     loadingPage() {
         return (
-            <div className='container-fluid page'>
+            <div className='container-fluid'>
                 <Helmet>
                     <title>Loading ... | Emily Writes Poems</title>
                 </Helmet>
@@ -180,6 +163,7 @@ export default class Poem extends Component {
                         <h3>Loading ...</h3>
                     </div>
                 </div>
+                <ThemeSwitcher/>
             </div>
         );
     }
@@ -187,7 +171,7 @@ export default class Poem extends Component {
 
     poemErrorPage() {
         return (
-            <div className='container-fluid page night'>
+            <div className='container-fluid'>
                 <Helmet>
                     <title>Poem not found | Emily Writes Poems</title>
                 </Helmet>
@@ -199,6 +183,7 @@ export default class Poem extends Component {
                     </div>
                     <Footer />
                 </div>
+                <ThemeSwitcher/>
             </div>
         );
     }
@@ -210,7 +195,7 @@ export default class Poem extends Component {
         // Poem found
         if (this.state.id && this.state.id!=='null poem') {
             return (
-                <div className={this.state.nightmode ? 'page night':'page'}>
+                <div>
                     <Header />
                     <Helmet>
                         <title>{this.state.title} | Emily Writes Poems</title>
@@ -228,12 +213,12 @@ export default class Poem extends Component {
                         {this.poemDetails()}
                     </div>
                     <Footer/>
-                    <ThemeSwitcher onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
+                    <ThemeSwitcher/>
                 </div>
             );
 
         // Poem not found
-        } else { return (<div>{this.poemErrorPage()}</div>); }
+    } else { return (<div>{this.poemErrorPage()}</div>); }
 
     }
 }
