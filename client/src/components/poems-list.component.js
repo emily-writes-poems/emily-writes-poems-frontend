@@ -12,10 +12,8 @@ export default class PoemsList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            poems: [],
-            nightmode: false
+            poems: []
         }
-        this.changeTheme = this.changeTheme.bind(this);
     }
 
 
@@ -30,18 +28,6 @@ export default class PoemsList extends Component {
         })
     }
 
-    changeTheme() {
-        if(this.state.nightmode) {
-            this.setState({
-                nightmode: false,
-            })
-        }
-        else {
-            this.setState({
-                nightmode: true,
-            })
-        }
-    }
 
     poemsList() {
         // map each poem to its own Link
@@ -55,7 +41,7 @@ export default class PoemsList extends Component {
 
     render() {
         return (
-            <div className={this.state.nightmode?'page night':'page'}>
+            <div>
                 <Helmet>
                     <title>Emily Writes Poems</title>
                 </Helmet>
@@ -68,7 +54,7 @@ export default class PoemsList extends Component {
                    <ul>{this.poemsList()}</ul>
                </div>
                <Footer />
-               <ThemeSwitcher onClickFunction={this.changeTheme} nightmode={this.state.nightmode}/>
+               <ThemeSwitcher />
             </div>
         )
     }
