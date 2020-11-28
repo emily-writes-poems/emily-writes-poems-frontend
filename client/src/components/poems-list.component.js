@@ -50,7 +50,7 @@ export default class PoemsList extends Component {
                     <p className='font-1'>I've written some poems. Some about myself. Some about the world as I see it. And many about the people and worlds that I've created and imagined.</p>
                </div>
                <div className='container font-2'>
-                   <h2 className='color-accent-2 my-4' align='center'>my poems.</h2>
+                   <h2 className='color-accent-2 my-4' align='center'>my poems. ({this.state.poems.length})</h2>
                    <ul>{this.poemsList()}</ul>
                </div>
                <Footer />

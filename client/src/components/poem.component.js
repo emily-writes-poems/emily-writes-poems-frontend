@@ -120,7 +120,17 @@ export default class Poem extends Component {
                         <Link className='link-style no-td' to={this.state.similar_poems_ids[2]}>
                             <Button className="button">{this.state.similar_poems_titles[2]}</Button>
                         </Link>
-                   </li>
+                    </li>
+                    <li>
+                        <Link className='link-style no-td' to={this.state.similar_poems_ids[3]}>
+                            <Button className="button">{this.state.similar_poems_titles[3]}</Button>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link className='link-style no-td' to={this.state.similar_poems_ids[4]}>
+                            <Button className="button">{this.state.similar_poems_titles[4]}</Button>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         );

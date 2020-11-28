@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function useLocalStorage(key, initial_value){
     const [value, set_value] = useState(() => {
