@@ -51,7 +51,7 @@ export default class Poem extends Component {
             }
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
             if (error.response.data.message === 'poem not found'){
                 console.log('Server unable to find requested poem.')
             }

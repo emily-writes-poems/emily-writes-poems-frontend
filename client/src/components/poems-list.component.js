@@ -21,7 +21,7 @@ export default class PoemsList extends Component {
         axios.get('/poems/')
         .then(response => {
             this.setState({poems: response.data});
-            console.log(this.state.poems);
+            // console.log(this.state.poems);
         })
         .catch(function (error) {
             console.log(error);
