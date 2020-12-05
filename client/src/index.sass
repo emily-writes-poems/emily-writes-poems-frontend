@@ -5,7 +5,7 @@ $font-3: 'Open Sans'
 
 $color-background: #F8F8FF
 $color-accent-1: #5B58BB
-$color-accent-2: #605767
+$color-accent-2: #817e92
 
 $color-background-night: #1A1324
 $color-text-night: #C6BCD8
@@ -66,7 +66,22 @@ html, body, #root
     font-family: $font-3, sans-serif
 
 .footer-style
-    padding: 5%
+    padding: 2.5%
+
+
+/* ABOUT COMPONENT */
+details > summary
+    font-family: $font-2, sans-serif
+    font-weight: 500
+    color: $color-accent-1
+    text-align: center
+    padding: 0.5%
+    margin: 0 auto
+    width: 30%
+details > div
+    font-family: $font-1
+    color: $color-accent-2
+    padding: 2%
 
 /* POEM PAGE*/
 .poem-header h3
@@ -111,3 +126,4 @@ html, body, #root
     font-size: 36px
     &:hover
         cursor: pointer
+    color: $color-accent-2
