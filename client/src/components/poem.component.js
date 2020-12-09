@@ -24,7 +24,9 @@ export default class Poem extends Component {
             behind_title : '',
             behind_poem : '',
             similar_poems : [],
-            top_words : []
+            top_words : [],
+            poem_collection : [],
+            collection_poems : []
         }
     }
 
@@ -46,13 +48,20 @@ export default class Poem extends Component {
                     similar_poems_ids : response.data.similar_poems_ids,
                     similar_poems_titles: response.data.similar_poems_titles,
                     top_words : response.data.top_words,
+                    poem_collection: response.data.poem_collection
                 });
-                //console.log(this.state)
+                axios.get('/poems/collection/' + this.state.poem_collection + '/' + this.state.id)
+                .then(response => {
+                    var temp = [];
+                    temp.push(response.data);
+                    this.setState({
+                        collection_poems: this.state.collection_poems.concat(temp)
+                    });
+                });
             }
         })
         .catch((error) => {
-            // console.log(error);
-            if (error.response.data.message === 'poem not found'){
+            if (error.response && error.response.data && error.response.data.message === 'poem not found'){
                 console.log('Server unable to find requested poem.')
             }
             this.setState({ id: 'null poem'});
@@ -101,36 +110,54 @@ export default class Poem extends Component {
         return(ret);
     }
 
+    getCollection(index) {
+        if (this.state.collection_poems.length) {
+            var collection = this.state.collection_poems[index].map((poem, idx) =>
+                <li key={idx}>
+                    <Link className='link-style no-td' to={poem.poem_id}>
+                        <Button className="button">{poem.poem_title}</Button>
+                    </Link>
+                </li>
+            );
+
+            return(collection);
+        }
+    }
+
+    poemCollections() {
+        if(this.state.poem_collection.length) {
+            var collections = this.state.poem_collection.map((coll, index) =>
+                <div key={index}>
+                    <ul>
+                        <h6 className="font-2 color-accent-2"><Markdown source={coll} escapeHtml={false}/></h6>
+                        {this.getCollection(index)}
+                    </ul>
+                </div>
+            );
+
+            return (
+                <div className="poemcollections">
+                    <h6 className="font-2 color-accent-1">collection(s).</h6>
+                    {collections}
+                </div>
+            );
+        }
+    }
 
     similarPoems() {
+        var links = this.state.similar_poems_ids.map((id, index) =>
+            <li key={index}>
+                <Link className='link-style no-td' to={this.state.similar_poems_ids[index]}>
+                    <Button className="button">{this.state.similar_poems_titles[index]}</Button>
+                </Link>
+            </li>
+        );
+
         return (
             <div className='similarpoems'>
                 <h6 className="font-2 color-accent-1">similar poems.</h6>
                 <ul>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[0]}>
-                            <Button className="button">{this.state.similar_poems_titles[0]}</Button>
-                        </Link></li>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[1]}>
-                            <Button className="button">{this.state.similar_poems_titles[1]}</Button>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[2]}>
-                            <Button className="button">{this.state.similar_poems_titles[2]}</Button>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[3]}>
-                            <Button className="button">{this.state.similar_poems_titles[3]}</Button>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[4]}>
-                            <Button className="button">{this.state.similar_poems_titles[4]}</Button>
-                        </Link>
-                    </li>
+                    {links}
                 </ul>
             </div>
         );
@@ -155,6 +182,8 @@ export default class Poem extends Component {
 
                 {this.topWords() && <><h6 className="font-2 color-accent-1">top words.</h6>
                  <Markdown source={this.topWords()} escapeHtml={false}/></>}
+
+                {this.poemCollections()}
 
                 {this.similarPoems()}
             </div>
