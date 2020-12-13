@@ -48,15 +48,18 @@ export default class Poem extends Component {
                     similar_poems_ids : response.data.similar_poems_ids,
                     similar_poems_titles: response.data.similar_poems_titles,
                     top_words : response.data.top_words,
-                    poem_collection: response.data.poem_collection
+                    poem_collection: response.data.poem_collection,
+                    collection_poems: []
                 });
-                axios.get('/poems/collection/' + this.state.poem_collection + '/' + this.state.id)
+                console.log('first axios')
+                axios.get('/poems/collection/' + this.state.poem_collection + '/' + this.props.match.params.poem_id)
                 .then(response => {
                     var temp = [];
                     temp.push(response.data);
                     this.setState({
                         collection_poems: this.state.collection_poems.concat(temp)
                     });
+                    console.log('second axios')
                 });
             }
         })
@@ -81,6 +84,7 @@ export default class Poem extends Component {
         var oldID = prevProps.match.params.poem_id;
         var newID = this.props.match.params.poem_id;
         if(newID !== oldID) {
+            console.log('updating it')
             this.getPoemData();
         }
     }
@@ -111,7 +115,7 @@ export default class Poem extends Component {
     }
 
     getCollection(index) {
-        if (this.state.collection_poems.length) {
+        if(this.state.collection_poems.length) {
             var collection = this.state.collection_poems[index].map((poem, idx) =>
                 <li key={idx}>
                     <Link className='link-style no-td' to={poem.poem_id}>
