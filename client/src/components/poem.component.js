@@ -51,7 +51,6 @@ export default class Poem extends Component {
                     poem_collection: response.data.poem_collection,
                     collection_poems: []
                 });
-                console.log('first axios')
                 axios.get('/poems/collection/' + this.state.poem_collection + '/' + this.props.match.params.poem_id)
                 .then(response => {
                     var temp = [];
@@ -59,7 +58,6 @@ export default class Poem extends Component {
                     this.setState({
                         collection_poems: this.state.collection_poems.concat(temp)
                     });
-                    console.log('second axios')
                 });
             }
         })
@@ -84,7 +82,6 @@ export default class Poem extends Component {
         var oldID = prevProps.match.params.poem_id;
         var newID = this.props.match.params.poem_id;
         if(newID !== oldID) {
-            console.log('updating it')
             this.getPoemData();
         }
     }
