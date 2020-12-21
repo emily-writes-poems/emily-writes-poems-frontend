@@ -2,7 +2,7 @@ import React from 'react';
 
 function About(){
     return (
-        <div className='container'>
+        <div className='container about'>
             <p className='font-1 color-accent-2' align='center'>Poems about myself, the world as I see it, and the people and worlds that I've created and imagined.</p>
 
             <details>

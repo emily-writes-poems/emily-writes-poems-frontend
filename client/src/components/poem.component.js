@@ -138,7 +138,7 @@ export default class Poem extends Component {
 
             return (
                 <div className="poemcollections">
-                    <h6 className="font-2 color-accent-1">collection(s).</h6>
+                    <h5 className="font-2 color-accent-1">collection(s).</h5>
                     {collections}
                 </div>
             );
@@ -156,7 +156,7 @@ export default class Poem extends Component {
 
         return (
             <div className='similarpoems'>
-                <h6 className="font-2 color-accent-1">similar poems.</h6>
+                <h5 className="font-2 color-accent-1">similar poems.</h5>
                 <ul>
                     {links}
                 </ul>
@@ -169,24 +169,33 @@ export default class Poem extends Component {
         return (
             <div>
                 <hr />
-                <h6 className="font-2 color-accent-1">behind the title.</h6>
+                <h5 className="font-2 color-accent-1">behind the title.</h5>
                 <Markdown source={this.state.behind_title && this.state.behind_title}/>
 
-                <h6 className="font-2 color-accent-1">behind the poem.</h6>
+                <h5 className="font-2 color-accent-1">behind the poem.</h5>
                 <Markdown source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
 
-                <h6 className="font-2 color-accent-1">lines.</h6>
+                <h5 className="font-2 color-accent-1">lines.</h5>
                 <p className="count">{this.state.linecount}</p>
 
-                <h6 className="font-2 color-accent-1">words.</h6>
+                <h5 className="font-2 color-accent-1">words.</h5>
                 <p className="count">{this.state.wordcount}</p>
 
-                {this.topWords() && <><h6 className="font-2 color-accent-1">top words.</h6>
+                {this.topWords() && <><h5 className="font-2 color-accent-1">top words.</h5>
                  <Markdown source={this.topWords()} escapeHtml={false}/></>}
 
                 {this.poemCollections()}
 
                 {this.similarPoems()}
+            </div>
+        );
+    }
+
+    commentForm(){
+        return(
+            <div>
+                <br />
+                <h6><a className="link-style" href={"mailto:emilywritescode+poems@gmail.com?subject=Comment%20for%20"+ '"' + this.state.title + '"'}>+ Leave your comments/feedback on this poem (via email).</a></h6>
             </div>
         );
     }
@@ -251,6 +260,9 @@ export default class Poem extends Component {
                     </div>
                     <div className='container poemdetails font-2 mt-5'>
                         {this.poemDetails()}
+                    </div>
+                    <div className="container font-2">
+                        {this.commentForm()}
                     </div>
                     <Footer/>
                     <ThemeSwitcher/>
