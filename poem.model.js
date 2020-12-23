@@ -27,13 +27,16 @@ let Poem = new Schema(
        poem_behind_poem: {
            type: String
        },
-       similar_poems : [{
-           type: String
-       }],
        top_words : {
            word : String,
            freq : Number
-       }
+       },
+       poem_collection : [{
+            type: String
+       }],
+       similar_poems : [{
+           type: String
+       }]
    },
    { collection: 'poems-list'}
 );

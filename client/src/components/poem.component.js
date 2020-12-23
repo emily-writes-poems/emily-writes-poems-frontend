@@ -24,7 +24,9 @@ export default class Poem extends Component {
             behind_title : '',
             behind_poem : '',
             similar_poems : [],
-            top_words : []
+            top_words : [],
+            poem_collection : [],
+            collection_poems : []
         }
     }
 
@@ -46,13 +48,21 @@ export default class Poem extends Component {
                     similar_poems_ids : response.data.similar_poems_ids,
                     similar_poems_titles: response.data.similar_poems_titles,
                     top_words : response.data.top_words,
+                    poem_collection: response.data.poem_collection,
+                    collection_poems: []
                 });
-                //console.log(this.state)
+                axios.get('/poems/collection/' + this.state.poem_collection + '/' + this.props.match.params.poem_id)
+                .then(response => {
+                    var temp = [];
+                    temp.push(response.data);
+                    this.setState({
+                        collection_poems: this.state.collection_poems.concat(temp)
+                    });
+                });
             }
         })
         .catch((error) => {
-            // console.log(error);
-            if (error.response.data.message === 'poem not found'){
+            if (error.response && error.response.data && error.response.data.message === 'poem not found'){
                 console.log('Server unable to find requested poem.')
             }
             this.setState({ id: 'null poem'});
@@ -102,38 +112,72 @@ export default class Poem extends Component {
     }
 
 
+    getCollection(index) {
+        if(this.state.collection_poems.length) {
+            var collection = this.state.collection_poems[index].map((poem, idx) =>
+                <li key={idx}>
+                    <Link className='link-style no-td' to={poem.poem_id}>
+                        <Button className="button">{poem.poem_title}</Button>
+                    </Link>
+                </li>
+            );
+
+            return(collection);
+        }
+    }
+
+
+    poemCollections() {
+        if(this.state.poem_collection.length) {
+            var collections = this.state.poem_collection.map((coll, index) =>
+                <div key={index}>
+                    <ul>
+                        <h6 className="font-2 color-accent-2"><Markdown source={coll} escapeHtml={false}/></h6>
+                        {this.getCollection(index)}
+                    </ul>
+                </div>
+            );
+
+            return (
+                <div className="poemcollections">
+                    <h5 className="font-2 color-accent-1">collection(s).</h5>
+                    {collections}
+                </div>
+            );
+        }
+    }
+
+
     similarPoems() {
+        var links = this.state.similar_poems_ids.map((id, index) =>
+            <li key={index}>
+                <Link className='link-style no-td' to={this.state.similar_poems_ids[index]}>
+                    <Button className="button">{this.state.similar_poems_titles[index]}</Button>
+                </Link>
+            </li>
+        );
+
         return (
             <div className='similarpoems'>
-                <h6 className="font-2 color-accent-1">similar poems.</h6>
+                <h5 className="font-2 color-accent-1">similar poems.</h5>
                 <ul>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[0]}>
-                            <Button className="button">{this.state.similar_poems_titles[0]}</Button>
-                        </Link></li>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[1]}>
-                            <Button className="button">{this.state.similar_poems_titles[1]}</Button>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[2]}>
-                            <Button className="button">{this.state.similar_poems_titles[2]}</Button>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[3]}>
-                            <Button className="button">{this.state.similar_poems_titles[3]}</Button>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link className='link-style no-td' to={this.state.similar_poems_ids[4]}>
-                            <Button className="button">{this.state.similar_poems_titles[4]}</Button>
-                        </Link>
-                    </li>
+                    {links}
                 </ul>
             </div>
         );
+    }
+
+
+    expandText(clicked, elemClass) {
+        if(document.getElementsByClassName(elemClass)[0].classList.contains("hidden")){
+            document.getElementsByClassName(clicked)[0].textContent = "[hide -]";
+            document.getElementsByClassName(elemClass)[0].classList.remove("hidden");
+            document.getElementsByClassName(elemClass)[0].classList.add("shown");
+        } else {
+            document.getElementsByClassName(clicked)[0].textContent = "[expand +]";
+            document.getElementsByClassName(elemClass)[0].classList.remove("shown");
+            document.getElementsByClassName(elemClass)[0].classList.add("hidden");
+        }
     }
 
 
@@ -141,22 +185,38 @@ export default class Poem extends Component {
         return (
             <div>
                 <hr />
-                <h6 className="font-2 color-accent-1">behind the title.</h6>
-                <Markdown source={this.state.behind_title && this.state.behind_title}/>
+                <div className="behindTitle">
+                    <h5 className="font-2 color-accent-1">behind the title. <span className="expand behindTitleButton" onClick={() => this.expandText("behindTitleButton", "behindTitleText")}>[expand +]</span></h5>
+                    <Markdown className="hidden behindTitleText" source={this.state.behind_title && this.state.behind_title}/>
+                </div>
 
-                <h6 className="font-2 color-accent-1">behind the poem.</h6>
-                <Markdown source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
+                <div className="behindPoem">
+                    <h5 className="font-2 color-accent-1">behind the poem. <span className="expand behindPoemButton" onClick={() => this.expandText("behindPoemButton", "behindPoemText")}>[expand +]</span></h5>
+                    <Markdown className="hidden behindPoemText" source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
+                </div>
 
-                <h6 className="font-2 color-accent-1">lines.</h6>
+                <h5 className="font-2 color-accent-1">lines.</h5>
                 <p className="count">{this.state.linecount}</p>
 
-                <h6 className="font-2 color-accent-1">words.</h6>
+                <h5 className="font-2 color-accent-1">words.</h5>
                 <p className="count">{this.state.wordcount}</p>
 
-                {this.topWords() && <><h6 className="font-2 color-accent-1">top words.</h6>
+                {this.topWords() && <><h5 className="font-2 color-accent-1">top words.</h5>
                  <Markdown source={this.topWords()} escapeHtml={false}/></>}
 
+                {this.poemCollections()}
+
                 {this.similarPoems()}
+            </div>
+        );
+    }
+
+
+    commentForm(){
+        return(
+            <div>
+                <br />
+                <h5><a className="link-style" href={"mailto:emilywritescode+poems@gmail.com?subject=Comment%20for%20"+ '"' + this.state.title + '"'}>[Leave your comments/feedback on this poem (via email).]</a></h5>
             </div>
         );
     }
@@ -198,6 +258,7 @@ export default class Poem extends Component {
         );
     }
 
+
     render() {
         // While loading
         if (!this.state.id) { return (<div>{this.loadingPage()}</div>); }
@@ -221,6 +282,9 @@ export default class Poem extends Component {
                     </div>
                     <div className='container poemdetails font-2 mt-5'>
                         {this.poemDetails()}
+                    </div>
+                    <div className="container font-2">
+                        {this.commentForm()}
                     </div>
                     <Footer/>
                     <ThemeSwitcher/>
