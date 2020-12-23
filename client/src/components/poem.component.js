@@ -111,6 +111,7 @@ export default class Poem extends Component {
         return(ret);
     }
 
+
     getCollection(index) {
         if(this.state.collection_poems.length) {
             var collection = this.state.collection_poems[index].map((poem, idx) =>
@@ -124,6 +125,7 @@ export default class Poem extends Component {
             return(collection);
         }
     }
+
 
     poemCollections() {
         if(this.state.poem_collection.length) {
@@ -145,6 +147,7 @@ export default class Poem extends Component {
         }
     }
 
+
     similarPoems() {
         var links = this.state.similar_poems_ids.map((id, index) =>
             <li key={index}>
@@ -165,15 +168,32 @@ export default class Poem extends Component {
     }
 
 
+    expandText(clicked, elemClass) {
+        if(document.getElementsByClassName(elemClass)[0].classList.contains("hidden")){
+            document.getElementsByClassName(clicked)[0].textContent = "[hide -]";
+            document.getElementsByClassName(elemClass)[0].classList.remove("hidden");
+            document.getElementsByClassName(elemClass)[0].classList.add("shown");
+        } else {
+            document.getElementsByClassName(clicked)[0].textContent = "[expand +]";
+            document.getElementsByClassName(elemClass)[0].classList.remove("shown");
+            document.getElementsByClassName(elemClass)[0].classList.add("hidden");
+        }
+    }
+
+
     poemDetails() {
         return (
             <div>
                 <hr />
-                <h5 className="font-2 color-accent-1">behind the title.</h5>
-                <Markdown source={this.state.behind_title && this.state.behind_title}/>
+                <div className="behindTitle">
+                    <h5 className="font-2 color-accent-1">behind the title. <span className="expand behindTitleButton" onClick={() => this.expandText("behindTitleButton", "behindTitleText")}>[expand +]</span></h5>
+                    <Markdown className="hidden behindTitleText" source={this.state.behind_title && this.state.behind_title}/>
+                </div>
 
-                <h5 className="font-2 color-accent-1">behind the poem.</h5>
-                <Markdown source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
+                <div className="behindPoem">
+                    <h5 className="font-2 color-accent-1">behind the poem. <span className="expand behindPoemButton" onClick={() => this.expandText("behindPoemButton", "behindPoemText")}>[expand +]</span></h5>
+                    <Markdown className="hidden behindPoemText" source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
+                </div>
 
                 <h5 className="font-2 color-accent-1">lines.</h5>
                 <p className="count">{this.state.linecount}</p>
@@ -191,11 +211,12 @@ export default class Poem extends Component {
         );
     }
 
+
     commentForm(){
         return(
             <div>
                 <br />
-                <h6><a className="link-style" href={"mailto:emilywritescode+poems@gmail.com?subject=Comment%20for%20"+ '"' + this.state.title + '"'}>+ Leave your comments/feedback on this poem (via email).</a></h6>
+                <h5><a className="link-style" href={"mailto:emilywritescode+poems@gmail.com?subject=Comment%20for%20"+ '"' + this.state.title + '"'}>[Leave your comments/feedback on this poem (via email).]</a></h5>
             </div>
         );
     }
@@ -236,6 +257,7 @@ export default class Poem extends Component {
             </div>
         );
     }
+
 
     render() {
         // While loading
