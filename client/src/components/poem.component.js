@@ -216,7 +216,7 @@ export default class Poem extends Component {
         return(
             <div>
                 <br />
-                <h5><a className="link-style" href={"mailto:emilywritescode+poems@gmail.com?subject=Comment%20for%20"+ '"' + this.state.title + '"'}>[Leave your comments/feedback on this poem (via email).]</a></h5>
+                <h5 className="comment"><a className="link-style" href={"mailto:emilywritescode+poems@gmail.com?subject=Comment%20for%20"+ '"' + this.state.title + '"'}>[Leave your comments/feedback on this poem (via email).]</a></h5>
             </div>
         );
     }
