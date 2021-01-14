@@ -1,5 +1,6 @@
-## What's this project?
 ![Emily Writes Poems. A collection of my poems.](./images/ewp-jan2021.png)
+
+## What's this project?
 A webapp displaying the text and details of my poetry.
 
 
