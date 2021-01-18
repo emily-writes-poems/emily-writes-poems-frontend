@@ -31,10 +31,13 @@ let Poem = new Schema(
            word : String,
            freq : Number
        },
-       poem_collection : [{
+       poem_collections_ids : [{
             type: String
        }],
-       similar_poems : [{
+       similar_poems_ids : [{
+           type: String
+       }],
+       similar_poems_titles : [{
            type: String
        }]
    },

@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const poemRoutes = express.Router();
 
 let Poem = require('./poem.model');
+let PoemCollection = require('./poem-collection.model');
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -46,18 +47,15 @@ poemRoutes.route('/:poem_id').get(function(req, res) {
 });
 
 
-// Search for poems by collection
-poemRoutes.route('/collection/:collection/:current_poem_id').get(function(req, res) {
-    console.log('>> Querying for poem collection: ' + req.params.collection + ' (excluding ' + req.params.current_poem_id + ')');
-    Poem.find({ poem_collection: req.params.collection, poem_id: { $ne: req.params.current_poem_id } }, function(err, poems) {
-        if(err) { console.log(err); }
-        else if (!poems.length) {
-            console.log('no other poems in collection');
-            return res.status(404).send({ message : 'no other poems currently in collection'})
-        }
-        else { res.json(poems); }
+// Search for collection
+poemRoutes.route('/collection/:collection_id').get(function(req, res) {
+    console.log('>> Querying for poem collection: ' + req.params.collection_id);
+    PoemCollection.findOne({ collection_id : req.params.collection_id }, function(err, coll) {
+        if(err) { return res.send(err); }
+        else { res.json(coll); }
     });
 });
+
 
 app.use(express.static(path.join(__dirname, "client", "build")))
 app.use('/poems', poemRoutes)

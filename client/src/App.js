@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import PoemsList from './components/poems-list.component';
 import Poem from './components/poem.component';
+import PoemCollection from './components/poem-collection.component';
 
 import TagManager from 'react-gtm-module';
 
@@ -22,6 +23,7 @@ class App extends React.Component{
                     <Switch>
                         <Route path='/' exact component={PoemsList} />
                         <Route path='/poem/:poem_id' component={Poem} />
+                        <Route path='/collection/:collection_id' component={PoemCollection} />
                     </Switch>
                 </div>
             </Router>
