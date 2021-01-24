@@ -9,6 +9,9 @@ let PoemCollection = new Schema(
        collection_name: {
            type: String
        },
+       collection_summary: {
+           type: String
+       },
        poem_ids : [{
            type: String
        }],

@@ -51,37 +51,19 @@ export default class Poem extends Component {
                     similar_poems_ids : response.data.similar_poems_ids,
                     similar_poems_titles: response.data.similar_poems_titles,
                     top_words : response.data.top_words,
-                    poem_collections_ids: response.data.poem_collection_ids,
                 });
 
-                // get collections info from Mongo
-                if(this.state.poem_collections_ids) {
-                    for(let coll of this.state.poem_collections_ids) {
-                        axios.get('/poems/collection/' + coll)
-                        .then(response => {
-                            if(response.data != null) {
-                                let temp_ids = response.data.poem_ids;
-                                temp_ids.splice(temp_ids.indexOf(this.state.id), 1);
-                                if(temp_ids.length > 0) {
-                                    let temp_titles = response.data.poem_titles;
-                                    temp_titles.splice(temp_titles.indexOf(this.state.title), 1);
-
-                                    let poem_ids = [];
-                                    poem_ids.push(temp_ids);
-
-                                    let poem_titles = [];
-                                    poem_titles.push(temp_titles);
-
-                                    this.setState({
-                                        poem_collections_names: this.state.poem_collections_names.concat(response.data.collection_name),
-                                        collection_poems_ids: this.state.collection_poems_ids.concat(poem_ids),
-                                        collection_poems_titles: this.state.collection_poems_titles.concat(poem_titles)
-                                    });
-                                }
-                            }
-                        });
+                axios.get('/poems/collection_by_poem/' + this.state.id)
+                .then(response => {
+                    if(response.data != null) {
+                        for(let col of response.data){
+                            this.setState({
+                                poem_collections_ids: [...this.state.poem_collections_ids, col.collection_id],
+                                poem_collections_names: [...this.state.poem_collections_names, col.collection_name]
+                            });
+                        }
                     }
-                }
+                })
             }
         })
         .catch((error) => {
@@ -135,36 +117,22 @@ export default class Poem extends Component {
     }
 
 
-    getCollection(index) {
-        if(this.state.collection_poems_ids && this.state.collection_poems_ids.length) {
-            var collection = this.state.collection_poems_ids[index].map((poem, idx) =>
-                <li key={idx}>
-                    <Link className='link-style no-td' to={poem}>
-                        <Button className="button">{this.state.collection_poems_titles[index][idx]}</Button>
+    poemCollections() {
+        if(this.state.poem_collections_ids && this.state.poem_collections_ids.length) {
+            var collections = this.state.poem_collections_names.map((coll, index) =>
+                <li key={index}>
+                    <Link className='link-style no-td' to={'/collection/' + this.state.poem_collections_ids[index]}>
+                        <Button className="button"><Markdown source={coll} escapeHtml={false}/></Button>
                     </Link>
                 </li>
             );
 
-            return(collection);
-        }
-    }
-
-
-    poemCollections() {
-        if(this.state.poem_collections_ids && this.state.poem_collections_ids.length) {
-            var collections = this.state.poem_collections_names.map((coll, index) =>
-                <div key={index}>
-                    <ul>
-                        <h6 className="font-2 color-accent-2"><Markdown source={coll} escapeHtml={false}/></h6>
-                        {this.getCollection(index)}
-                    </ul>
-                </div>
-            );
-
             return (
-                <div className="poemcollections">
+                <div className="styledButtonLinks">
                     <h5 className="font-2 color-accent-1">collection(s).</h5>
-                    {collections}
+                    <ul>
+                        {collections}
+                    </ul>
                 </div>
             );
         }
@@ -181,7 +149,7 @@ export default class Poem extends Component {
         );
 
         return (
-            <div className='similarpoems'>
+            <div className='styledButtonLinks'>
                 <h5 className="font-2 color-accent-1">similar poems.</h5>
                 <ul>
                     {links}
