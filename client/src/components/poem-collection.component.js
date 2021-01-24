@@ -67,7 +67,7 @@ export default class PoemCollection extends Component {
     collectionPoems(){
          var links = this.state.poem_ids.map((id, index) =>
              <li key={index}>
-                 <Link className='link-style no-td' to={this.state.poem_ids[index]}>
+                 <Link className='link-style no-td' to={'/poem/' + this.state.poem_ids[index]}>
                      <Button className="button">{this.state.poem_titles[index]}</Button>
                  </Link>
              </li>
