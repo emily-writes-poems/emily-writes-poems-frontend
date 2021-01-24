@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const poemRoutes = express.Router();
 
 let Poem = require('./poem.model');
+let PoemCollection = require('./poem-collection.model');
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -40,24 +41,31 @@ poemRoutes.route('/:poem_id').get(function(req, res) {
     console.log('>> Querying for poem: ' + req.params.poem_id);
     Poem.findOne({ poem_id: req.params.poem_id}, function(err, poem) {
         if(err) { return res.send(err); }
-        else if (poem === null) { return res.status(404).send({ message : 'poem not found'}); }
+        else if (poem === null) { return res.status(404).send({ message : 'poem not found' }); }
         else { res.json(poem); }
     });
 });
 
 
-// Search for poems by collection
-poemRoutes.route('/collection/:collection/:current_poem_id').get(function(req, res) {
-    console.log('>> Querying for poem collection: ' + req.params.collection + ' (excluding ' + req.params.current_poem_id + ')');
-    Poem.find({ poem_collection: req.params.collection, poem_id: { $ne: req.params.current_poem_id } }, function(err, poems) {
-        if(err) { console.log(err); }
-        else if (!poems.length) {
-            console.log('no other poems in collection');
-            return res.status(404).send({ message : 'no other poems currently in collection'})
-        }
-        else { res.json(poems); }
+// Search for collections a given poem is in
+poemRoutes.route('/collection_by_poem/:poem_id').get(function(req, res) {
+    console.log('>> Querying for poem collection(s) for poem: ' + req.params.poem_id);
+    PoemCollection.find({ poem_ids : { $in: [req.params.poem_id] } }, function(err, coll) {
+        if(err) { return res.send(err); }
+        else { res.json(coll); }
     });
 });
+
+
+// Search for collection by ID
+poemRoutes.route('/collection/:collection_id').get(function(req, res) {
+    console.log('>> Querying for poem collection by ID: ' + req.params.collection_id);
+    PoemCollection.findOne({ collection_id : req.params.collection_id }, function(err, coll) {
+        if(err) { return res.send(err); }
+        else if (coll === null) { return res.status(404).send({ message: 'collection not found' }); }
+        else { res.json(coll); }
+    });
+})
 
 app.use(express.static(path.join(__dirname, "client", "build")))
 app.use('/poems', poemRoutes)
