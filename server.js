@@ -10,6 +10,8 @@ const poemRoutes = express.Router();
 
 let Poem = require('./poem.model');
 let PoemCollection = require('./poem-collection.model');
+let Feature = require('./feature.model');
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -27,7 +29,7 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
 // Get all poems
 poemRoutes.route('/').get(function(req, res) {
     console.log('>> Fetching all poems')
-    Poem.find(function(err, poems) {
+    Poem.find({}, '-_id', function(err, poems) {
        if(err) { console.log(err); }
        else { res.json(poems); }
     })
@@ -37,9 +39,9 @@ poemRoutes.route('/').get(function(req, res) {
 
 
 // Search for poem by ID
-poemRoutes.route('/:poem_id').get(function(req, res) {
+poemRoutes.route('/poem/:poem_id').get(function(req, res) {
     console.log('>> Querying for poem: ' + req.params.poem_id);
-    Poem.findOne({ poem_id: req.params.poem_id}, function(err, poem) {
+    Poem.findOne({ poem_id: req.params.poem_id}, '-_id', function(err, poem) {
         if(err) { return res.send(err); }
         else if (poem === null) { return res.status(404).send({ message : 'poem not found' }); }
         else { res.json(poem); }
@@ -50,7 +52,7 @@ poemRoutes.route('/:poem_id').get(function(req, res) {
 // Search for collections a given poem is in
 poemRoutes.route('/collection_by_poem/:poem_id').get(function(req, res) {
     console.log('>> Querying for poem collection(s) for poem: ' + req.params.poem_id);
-    PoemCollection.find({ poem_ids : { $in: [req.params.poem_id] } }, function(err, coll) {
+    PoemCollection.find({ poem_ids : { $in: [req.params.poem_id] } }, '-_id', function(err, coll) {
         if(err) { return res.send(err); }
         else { res.json(coll); }
     });
@@ -60,12 +62,21 @@ poemRoutes.route('/collection_by_poem/:poem_id').get(function(req, res) {
 // Search for collection by ID
 poemRoutes.route('/collection/:collection_id').get(function(req, res) {
     console.log('>> Querying for poem collection by ID: ' + req.params.collection_id);
-    PoemCollection.findOne({ collection_id : req.params.collection_id }, function(err, coll) {
+    PoemCollection.findOne({ collection_id : req.params.collection_id }, '-_id', function(err, coll) {
         if(err) { return res.send(err); }
         else if (coll === null) { return res.status(404).send({ message: 'collection not found' }); }
         else { res.json(coll); }
     });
-})
+});
+
+// Get the current feature
+poemRoutes.route('/feature/').get(function(req, res) {
+    console.log('>> Querying for current feature');
+    Feature.findOne( { currently_featured : true }, '-_id -currently_featured', function(err, feat) {
+       if(err) { console.log(err); }
+       else { res.json(feat); }
+    });
+});
 
 app.use(express.static(path.join(__dirname, "client", "build")))
 app.use('/poems', poemRoutes)

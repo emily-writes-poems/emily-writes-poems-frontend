@@ -36,7 +36,7 @@ export default class Poem extends Component {
 
     getPoemData() {
         // get poem data from Mongo
-        axios.get('/poems/' + this.props.match.params.poem_id)
+        axios.get('/poems/poem/' + this.props.match.params.poem_id)
         .then(response => {
             if(response.data != null){
                 this.setState({
