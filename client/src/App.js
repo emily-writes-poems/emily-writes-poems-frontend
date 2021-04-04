@@ -6,6 +6,8 @@ import PoemsList from './components/poems-list.component';
 import Poem from './components/poem.component';
 import PoemCollection from './components/poem-collection.component';
 
+import ErrorPage from './components/errorpage.component';
+
 import TagManager from 'react-gtm-module';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -24,6 +26,7 @@ class App extends React.Component{
                         <Route path='/' exact component={PoemsList} />
                         <Route path='/poem/:poem_id' component={Poem} />
                         <Route path='/collection/:collection_id' component={PoemCollection} />
+                        <Route path='*' component={ErrorPage} />
                     </Switch>
                 </div>
             </Router>

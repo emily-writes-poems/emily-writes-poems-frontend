@@ -8,6 +8,8 @@ import Header from './header';
 import Footer from './footer';
 import ThemeSwitcher from './theme-switcher';
 
+import ErrorPage from './errorpage.component';
+
 const Markdown = require('react-markdown/with-html');
 
 
@@ -27,9 +29,7 @@ export default class Poem extends Component {
             similar_poems_titles: [],
             top_words : [],
             poem_collections_ids : [],
-            poem_collections_names: [],
-            collection_poems_ids : [],
-            collection_poems_titles : []
+            poem_collections_names: []
         }
     }
 
@@ -53,6 +53,12 @@ export default class Poem extends Component {
                     top_words : response.data.top_words,
                 });
 
+                // clear any previous collections
+                this.setState({
+                    poem_collections_ids : [],
+                    poem_collections_names: []
+                })
+
                 axios.get('/poems/collection_by_poem/' + this.state.id)
                 .then(response => {
                     if(response.data != null) {
@@ -62,6 +68,8 @@ export default class Poem extends Component {
                                 poem_collections_names: [...this.state.poem_collections_names, col.collection_name]
                             });
                         }
+                    } else {
+
                     }
                 })
             }
@@ -88,6 +96,8 @@ export default class Poem extends Component {
         var newID = this.props.match.params.poem_id;
         if(newID !== oldID) {
             this.getPoemData();
+            this.expand_hide("behindTitleButton", "behindTitleText", true);
+            this.expand_hide("behindPoemButton", "behindPoemText", true)
         }
     }
 
@@ -159,15 +169,17 @@ export default class Poem extends Component {
     }
 
 
-    expandText(clicked, elemClass) {
-        if(document.getElementsByClassName(elemClass)[0].classList.contains("hidden")){
-            document.getElementsByClassName(clicked)[0].textContent = "[hide -]";
-            document.getElementsByClassName(elemClass)[0].classList.remove("hidden");
-            document.getElementsByClassName(elemClass)[0].classList.add("shown");
-        } else {
-            document.getElementsByClassName(clicked)[0].textContent = "[expand +]";
-            document.getElementsByClassName(elemClass)[0].classList.remove("shown");
-            document.getElementsByClassName(elemClass)[0].classList.add("hidden");
+    expand_hide(optionText, sectionClass, reset = false) {
+        // we want to hide the section and show the expand option
+        if(document.getElementsByClassName(sectionClass)[0].classList.contains("shown")){
+            document.getElementsByClassName(optionText)[0].textContent = "[expand +]";
+            document.getElementsByClassName(sectionClass)[0].classList.remove("shown");
+            document.getElementsByClassName(sectionClass)[0].classList.add("hidden");
+        // we want to display the section and show the hide option
+        }else if(!reset){
+            document.getElementsByClassName(optionText)[0].textContent = "[hide -]";
+            document.getElementsByClassName(sectionClass)[0].classList.remove("hidden");
+            document.getElementsByClassName(sectionClass)[0].classList.add("shown");
         }
     }
 
@@ -177,20 +189,20 @@ export default class Poem extends Component {
             <div>
                 <hr />
                 <div className="behindTitle">
-                    <h5 className="font-2 color-accent-1">behind the title. <span className="expand behindTitleButton" onClick={() => this.expandText("behindTitleButton", "behindTitleText")}>[expand +]</span></h5>
-                    <Markdown className="hidden behindTitleText" source={this.state.behind_title && this.state.behind_title}/>
+                    <h5 className="font-2 color-accent-1">behind the title. <span className="behindTitleButton" onClick={() => this.expand_hide("behindTitleButton", "behindTitleText")}>[expand +]</span></h5>
+                    <div className="outer"><Markdown className="hidden behindTitleText" source={this.state.behind_title.replace(/\\n/g, '<br /><br />')}/></div>
                 </div>
 
                 <div className="behindPoem">
-                    <h5 className="font-2 color-accent-1">behind the poem. <span className="expand behindPoemButton" onClick={() => this.expandText("behindPoemButton", "behindPoemText")}>[expand +]</span></h5>
-                    <Markdown className="hidden behindPoemText" source={this.state.behind_poem && this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/>
+                    <h5 className="font-2 color-accent-1">behind the poem. <span className="behindPoemButton" onClick={() => this.expand_hide("behindPoemButton", "behindPoemText")}>[expand +]</span></h5>
+                    <div className="outer"><Markdown className="hidden behindPoemText" source={this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/></div>
                 </div>
 
                 <h5 className="font-2 color-accent-1">lines.</h5>
-                <p className="count">{this.state.linecount}</p>
+                <p>{this.state.linecount}</p>
 
                 <h5 className="font-2 color-accent-1">words.</h5>
-                <p className="count">{this.state.wordcount}</p>
+                <p>{this.state.wordcount}</p>
 
                 {this.topWords() && <><h5 className="font-2 color-accent-1">top words.</h5>
                  <Markdown source={this.topWords()} escapeHtml={false}/></>}
@@ -207,7 +219,7 @@ export default class Poem extends Component {
         return(
             <div>
                 <br />
-                <h5 className="comment"><a className="link-style" href={"mailto:emilywritescode+poems@gmail.com?subject=Comment%20for%20"+ '"' + this.state.title + '"'}>[Leave your comments/feedback on this poem (via email).]</a></h5>
+                <h5 className="comment"><a className="link-style" href={`mailto:emilywritescode+poems@gmail.com?subject=Comment%20for%20"${this.state.title}"`}>[Leave your comments/feedback on this poem (via email).]</a></h5>
             </div>
         );
     }
@@ -230,29 +242,9 @@ export default class Poem extends Component {
     }
 
 
-    poemErrorPage() {
-        return (
-            <div className='container-fluid'>
-                <Helmet>
-                    <title>Poem not found | Emily Writes Poems</title>
-                </Helmet>
-                <div className='container'>
-                    <Header />
-                    <div className='poem-header my-4'>
-                        <h3>Poem not found</h3>
-                        <h6>Sorry, the poem you requested could not be found.</h6>
-                    </div>
-                    <Footer />
-                </div>
-                <ThemeSwitcher/>
-            </div>
-        );
-    }
-
-
     render() {
         // While loading
-        if (!this.state.id) { return (<div>{this.loadingPage()}</div>); }
+        if (!this.state.id) { return null; }
 
         // Poem found
         if (this.state.id && this.state.id!=='null poem') {
@@ -283,7 +275,7 @@ export default class Poem extends Component {
             );
 
         // Poem not found
-    } else { return (<div>{this.poemErrorPage()}</div>); }
+    } else { return (<div><ErrorPage text="Poem" /></div>); }
 
     }
 }

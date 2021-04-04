@@ -15,11 +15,13 @@ export default class FeaturedPoem extends Component{
     getFeature() {
         axios.get('/poems/feature/')
         .then(response => {
-            this.setState({
-                poem_title : response.data.poem_title,
-                poem_id : response.data.poem_id,
-                featured_text : response.data.featured_text
-            });
+            if(response.data != null) {
+                this.setState({
+                    poem_title : response.data.poem_title,
+                    poem_id : response.data.poem_id,
+                    featured_text : response.data.featured_text
+                });
+            }
         });
     }
 
@@ -28,12 +30,16 @@ export default class FeaturedPoem extends Component{
     }
 
     render(){
-        return(
-            <div className="feature-alert align-center">
-                <b>currently featured poem.</b><br />
-                <Link className="featured-poem link-style" to={'/poem/' + this.state.poem_id}>{this.state.poem_title}</Link><br />
-                <i>{this.state.featured_text}</i>
-            </div>
-        )
+        if(!this.state.poem_id) { return null; }
+
+        if(this.state.poem_id) {
+            return(
+                <div className="feature-alert align-center">
+                    <b>currently featured poem.</b><br />
+                    <Link className="featured-poem link-style" to={'/poem/' + this.state.poem_id}>{this.state.poem_title}</Link><br />
+                    <i>{this.state.featured_text}</i>
+                </div>
+            );
+        }
     }
 }
