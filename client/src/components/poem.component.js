@@ -4,9 +4,9 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Button } from 'react-bootstrap';
 
-import Header from './header';
-import Footer from './footer';
-import ThemeSwitcher from './theme-switcher';
+import Header from '../utils/header';
+import Footer from '../utils/footer';
+import ThemeSwitcher from '../utils/theme-switcher';
 
 import ErrorPage from './errorpage.component';
 

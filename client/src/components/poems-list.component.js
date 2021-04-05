@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
-import Header from './header';
-import Footer from './footer';
-import About from './about';
+import Header from '../utils/header';
+import Footer from '../utils/footer';
+import ThemeSwitcher from '../utils/theme-switcher';
+import About from '../utils/about';
+
 import Feature from './feature.component';
-import ThemeSwitcher from './theme-switcher';
 
 
 export default class PoemsList extends Component {
@@ -39,21 +40,6 @@ export default class PoemsList extends Component {
         ));
     }
 
-    loadingPage() {
-        return (
-            <div className='container-fluid'>
-                <Helmet>
-                    <title>Loading ... | Emily Writes Poems</title>
-                </Helmet>
-                <div className='container'>
-                    <div className='poem-header my-4'>
-                        <h3>Loading ...</h3>
-                    </div>
-                </div>
-                <ThemeSwitcher/>
-            </div>
-        );
-    }
 
     render() {
         // While loading
