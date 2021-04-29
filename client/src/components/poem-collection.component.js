@@ -50,14 +50,14 @@ export default class PoemCollection extends Component {
         if(this.state.summary) {
             return (
                 <div>
-                    <h5 className="font-2 color-accent-1">About this poem collection.</h5>
+                    <h5 className="font-2 color-accent-1">about this poem collection.</h5>
                     <h6><Markdown source={this.state.summary} escapeHtml={false}/></h6>
                 </div>
             );
         } else {
             return (
                 <div>
-                    <h5 className="font-2 color-accent-1">About this poem collection.</h5>
+                    <h5 className="font-2 color-accent-1">about this poem collection.</h5>
                     <h6>summary to come!</h6>
                 </div>
             );
