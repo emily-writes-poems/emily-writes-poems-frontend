@@ -4,9 +4,11 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Button } from 'react-bootstrap';
 
-import Header from './header';
-import Footer from './footer';
-import ThemeSwitcher from './theme-switcher';
+import Header from '../utils/header';
+import Footer from '../utils/footer';
+import ThemeSwitcher from '../utils/theme-switcher';
+
+import ErrorPage from './errorpage.component';
 
 const Markdown = require('react-markdown/with-html');
 
@@ -107,20 +109,7 @@ export default class PoemCollection extends Component {
             );
         } else {
             return(
-                <div className='container-fluid'>
-                    <Helmet>
-                        <title>Poem collection not found | Emily Writes Poems</title>
-                    </Helmet>
-                    <div className='container'>
-                        <Header />
-                        <div className='poem-header my-4'>
-                            <h3>Poem collection not found</h3>
-                            <h6>Sorry, the poem collection you requested could not be found.</h6>
-                        </div>
-                        <Footer />
-                    </div>
-                    <ThemeSwitcher/>
-                </div>
+                <div><ErrorPage text="Poem collection"/></div>
             );
         }
     }

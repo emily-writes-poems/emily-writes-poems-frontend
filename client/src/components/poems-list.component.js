@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
-import Header from './header';
-import Footer from './footer';
-import About from './about';
+import Header from '../utils/header';
+import Footer from '../utils/footer';
+import ThemeSwitcher from '../utils/theme-switcher';
+import About from '../utils/about';
+
 import Feature from './feature.component';
-import ThemeSwitcher from './theme-switcher';
 
 
 export default class PoemsList extends Component {
@@ -41,21 +42,27 @@ export default class PoemsList extends Component {
 
 
     render() {
-        return (
-            <div>
-                <Helmet>
-                    <title>Emily Writes Poems</title>
-                </Helmet>
-                <Header />
-                <About />
-                <div className='container font-2'>
-                   <h3 className='color-accent-2 my-4' align='center'>my poems. ({this.state.poems.length})</h3>
-                   <Feature />
-                   <ul>{this.poemsList()}</ul>
+        // While loading
+        if(!this.state.poems.length) {  return null; }
+
+        // Poems list found
+        if(this.state.poems){
+            return (
+                <div>
+                    <Helmet>
+                        <title>Emily Writes Poems</title>
+                    </Helmet>
+                    <Header />
+                    <About />
+                    <div className='container font-2'>
+                       <h3 className='color-accent-2 my-4' align='center'>my poems. ({this.state.poems.length})</h3>
+                       <Feature />
+                       <ul>{this.poemsList()}</ul>
+                    </div>
+                    <Footer />
+                    <ThemeSwitcher />
                 </div>
-                <Footer />
-                <ThemeSwitcher />
-            </div>
-        )
+            );
+        }
     }
 }

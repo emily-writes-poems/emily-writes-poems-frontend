@@ -33,7 +33,7 @@ function About(){
                         <li key='ws3'><i>connection.</i> Big theme in my writing.</li>
                         <li key='ws4'><i>light & darkness.</i> For every poem that's set in sunshine, there's one that takes place in fog or night or shade.</li>
                         <li key='ws5'><i>the moon.</i> This ties in with the light & darkness thing. The image of the moon always inspires my writing.</li>
-                        <li key='ws6'><i>comma splices.</i> Those occur outside of my poems too.</li>
+                        <li key='ws6'><i>comma splices.</i> It's like I don't know how to use commas. The rules of the English language are meant to be broken. I kinda like comma splices, don't you?</li>
                     </ul>
                 </div>
             </details>
@@ -41,14 +41,14 @@ function About(){
             <details>
                 <summary>what you can explore here.</summary>
                 <div>
-                    <p>On the page you're currently on you will find the list of links to all of my poems. Each poem page has the poem itself, then an explanation of the poem's title and what the poem is about or what I was thinking about when writing it. I'm a sucker for behind-the-scenes with all creative processes, and I hope some might find these fun! Each poem page also has statistics like word and line counts. Lastly, you'll find links to other poems that may be similar.</p>
-                    <p>I'm always super happy to receive any comments on my work. One of the most fun parts of sharing my writing is to see what people think the inspiration was, or what came to mind when they were reading a poem. I'll have a system soon to make it easy to send comments directly from the poem page.</p>
+                    <p>On the page you're currently on you will find the list of all of my poems. There also may be a featured poem that I'm currently highlighting!</p>
+                    <p>Each poem page has the poem itself, then an explanation of the poem's title and what the poem is about or what I was thinking about when writing it. I'm a sucker for behind-the-scenes with all creative processes, and I hope some might find these fun! Each poem page also has statistics like word and line counts. Lastly, you'll find links to other poems that may be similar. I've categorized some poems in collections based on similar themes, so those may show up as well.</p>
+                    <p>I'm always super happy to receive any comments on my work. One of the most fun parts of sharing my writing is to see what people think the inspiration was, or what came to mind when they were reading a poem. Right now, you can send me comments via email from any of the poem pages.</p>
                 </div>
             </details>
-
             <hr/>
         </div>
-    )
+    );
 }
 
 export default About;
