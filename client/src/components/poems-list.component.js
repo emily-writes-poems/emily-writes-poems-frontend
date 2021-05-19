@@ -21,7 +21,7 @@ export default class PoemsList extends Component {
 
 
     componentDidMount() {
-        axios.get('/poems/')
+        axios.get('http://localhost:5000/poems/')
         .then(response => {
             this.setState({poems: response.data});
         })

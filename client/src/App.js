@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import PoemsList from './components/poems-list.component';
 import Poem from './components/poem.component';
 import PoemCollection from './components/poem-collection.component';
+import NewPoem from './components/Poem';
 
 import ErrorPage from './components/errorpage.component';
 
@@ -26,6 +27,9 @@ class App extends React.Component{
                         <Route path='/' exact component={PoemsList} />
                         <Route path='/poem/:poem_id' component={Poem} />
                         <Route path='/collection/:collection_id' component={PoemCollection} />
+                        <Route path='/newpoem/:poem_id'>
+                            <NewPoem />
+                        </Route>
                         <Route path='*' component={ErrorPage} />
                     </Switch>
                 </div>

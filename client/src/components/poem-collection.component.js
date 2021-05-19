@@ -26,7 +26,7 @@ export default class PoemCollection extends Component {
 
 
     getCollectionData() {
-        axios.get('/poems/collection/' + this.props.match.params.collection_id)
+        axios.get('http://localhost:5000/poems/collection/' + this.props.match.params.collection_id)
         .then(response => {
             if (response.data!=null) {
                 this.setState({
