@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
-import Header from '../utils/header';
-import Footer from '../utils/footer';
-import ThemeSwitcher from '../utils/theme-switcher';
 import About from '../utils/about';
+import ErrorPage from './errorpage.component';
 
 import Feature from './feature.component';
 
@@ -23,10 +21,14 @@ export default class PoemsList extends Component {
     componentDidMount() {
         axios.get('http://localhost:5000/poems/')
         .then(response => {
-            this.setState({poems: response.data});
+            if(!response.data) {
+            } else {
+                this.setState({poems : response.data});
+            }
         })
-        .catch(function (error) {
-            console.log(error);
+        .catch((error) => {
+            console.log('yeeyy');
+            this.setState( {poems : null} );
         })
     }
 
@@ -42,6 +44,8 @@ export default class PoemsList extends Component {
 
 
     render() {
+        if(!this.state.poems) { return (<div><ErrorPage notFound="Poems list" text="The server is likely down. Please try again later."/></div>); }
+
         // While loading
         if (!this.state.poems.length) { return null; }
 
@@ -52,15 +56,12 @@ export default class PoemsList extends Component {
                     <Helmet>
                         <title>Emily Writes Poems</title>
                     </Helmet>
-                    <Header />
                     <About />
                     <div className='container font-2'>
                        <h3 className='color-accent-2 my-4' align='center'>my poems. ({this.state.poems.length})</h3>
                        <Feature />
                        <ul>{this.poemsList()}</ul>
                     </div>
-                    <Footer />
-                    <ThemeSwitcher />
                 </div>
             );
         }

@@ -2,6 +2,10 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Header from './utils/header';
+import Footer from './utils/footer';
+import ThemeSwitcher from './utils/theme-switcher';
+
 import PoemsList from './components/poems-list.component';
 import Poem from './components/poem.component';
 import PoemCollection from './components/poem-collection.component';
@@ -23,6 +27,7 @@ class App extends React.Component{
         return(
             <Router>
                 <div>
+                    <Header />
                     <Switch>
                         <Route path='/' exact component={PoemsList} />
                         <Route path='/poem/:poem_id' component={Poem} />
@@ -32,6 +37,8 @@ class App extends React.Component{
                         </Route>
                         <Route path='*' component={ErrorPage} />
                     </Switch>
+                    <Footer />
+                    <ThemeSwitcher />
                 </div>
             </Router>
         );

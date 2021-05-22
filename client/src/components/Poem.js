@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../utils/header';
-import Footer from '../utils/footer';
+//const Markdown = require('react-markdown/with-html');
+
 
 const NewPoem = () => {
     const { poem_id } = useParams();
     const [ poem_data, setPoemData ] = useState();
 
-    const getPoemData = async () => {
-        const res = await fetch(`http://localhost:5000/poems/poem/${poem_id}`);
-
-        await res.json().then((data) => setPoemData(data))
-    };
-
-
     useEffect(() => {
+        const getPoemData = async () => {
+            const res = await fetch(`http://localhost:5000/poems/poem/${poem_id}`);
+
+            await res.json().then((data) => setPoemData(data))
+        };
         getPoemData();
-    }, []);
+    }, [poem_id]);
 
 
     useEffect(() => {
@@ -26,7 +24,6 @@ const NewPoem = () => {
 
     return (
         <div>
-        <Header />
         { poem_data &&
             (
             <div>
@@ -69,8 +66,6 @@ const NewPoem = () => {
                     </h5>
                     <p>{poem_data.poem_wordcount}</p>
                 </div>
-
-                <Footer />
             </div>
             </div>
             )

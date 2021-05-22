@@ -4,10 +4,6 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Button } from 'react-bootstrap';
 
-import Header from '../utils/header';
-import Footer from '../utils/footer';
-import ThemeSwitcher from '../utils/theme-switcher';
-
 import ErrorPage from './errorpage.component';
 
 const Markdown = require('react-markdown/with-html');
@@ -38,7 +34,9 @@ export default class Poem extends Component {
         // get poem data from Mongo
         axios.get('http://localhost:5000/poems/poem/' + this.props.match.params.poem_id)
         .then(response => {
-            if (response.data != null) {
+            if(!response.data) {
+                this.setState({ id: 'null poem'});
+            } else {
                 this.setState({
                     id : this.props.match.params.poem_id,
                     date : response.data.poem_date,
@@ -59,7 +57,7 @@ export default class Poem extends Component {
                     poem_collections_names: []
                 })
 
-                axios.get('/poems/collection_by_poem/' + this.state.id)
+                axios.get('http://localhost:5000/poems/collection_by_poem/' + this.state.id)
                 .then(response => {
                     if (response.data != null) {
                         for (let col of response.data) {
@@ -68,13 +66,15 @@ export default class Poem extends Component {
                                 poem_collections_names: [...this.state.poem_collections_names, col.collection_name]
                             });
                         }
-                    } else {
-
                     }
+                })
+                .catch((error) => {
+                    console.log(error.response);
                 })
             }
         })
         .catch((error) => {
+            console.log(error.response);
             this.setState({ id: 'null poem'});
         });
 
@@ -233,7 +233,6 @@ export default class Poem extends Component {
                         <h3>Loading ...</h3>
                     </div>
                 </div>
-                <ThemeSwitcher/>
             </div>
         );
     }
@@ -247,7 +246,6 @@ export default class Poem extends Component {
         if (this.state.id && this.state.id !== 'null poem') {
             return (
                 <div>
-                    <Header />
                     <Helmet>
                         <title>{this.state.title} | Emily Writes Poems</title>
                     </Helmet>
@@ -266,13 +264,11 @@ export default class Poem extends Component {
                     <div className="container font-2">
                         {this.commentForm()}
                     </div>
-                    <Footer/>
-                    <ThemeSwitcher/>
                 </div>
             );
 
         // Poem not found
-    } else { return (<div><ErrorPage text="Poem" /></div>); }
+    } else { return (<div><ErrorPage notFound="Poem" /></div>); }
 
     }
 }

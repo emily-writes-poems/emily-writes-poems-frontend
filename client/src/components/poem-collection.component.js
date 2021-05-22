@@ -4,10 +4,6 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Button } from 'react-bootstrap';
 
-import Header from '../utils/header';
-import Footer from '../utils/footer';
-import ThemeSwitcher from '../utils/theme-switcher';
-
 import ErrorPage from './errorpage.component';
 
 const Markdown = require('react-markdown/with-html');
@@ -88,7 +84,6 @@ export default class PoemCollection extends Component {
                     <Helmet>
                         <title>Emily Writes Poems</title>
                     </Helmet>
-                    <Header />
                     <div className='container font-2'>
                        <h3 className='color-accent-1 my-4'><Markdown source={this.state.name} escapeHtml={false}/></h3>
                     </div>
@@ -98,12 +93,10 @@ export default class PoemCollection extends Component {
                     <div className='container mt-5'>
                         {this.collectionPoems()}
                     </div>
-                    <Footer />
-                    <ThemeSwitcher />
                 </div>
             );
         } else {
-            return (<div><ErrorPage text="Poem collection"/></div>);
+            return (<div><ErrorPage notFound="Poem collection"/></div>);
         }
     }
 }
