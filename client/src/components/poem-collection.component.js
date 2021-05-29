@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Button } from 'react-bootstrap';
+import Markdown from 'react-markdown';
 
 import ErrorPage from './errorpage.component';
-
-const Markdown = require('react-markdown/with-html');
 
 
 export default class PoemCollection extends Component {
@@ -48,7 +47,7 @@ export default class PoemCollection extends Component {
         return (
             <div>
                 <h5 className="font-2 color-accent-1">about this poem collection.</h5>
-                <h6><Markdown source={this.state.summary ? this.state.summary : 'Summary to come!'} escapeHtml={false}/></h6>
+                <h6><Markdown>{this.state.summary ? this.state.summary : 'Summary to come!'}</Markdown></h6>
             </div>
         );
     }
@@ -85,7 +84,7 @@ export default class PoemCollection extends Component {
                         <title>Emily Writes Poems</title>
                     </Helmet>
                     <div className='container font-2'>
-                       <h3 className='color-accent-1 my-4'><Markdown source={this.state.name} escapeHtml={false}/></h3>
+                       <h3 className='color-accent-1 my-4'><Markdown>{this.state.name}</Markdown></h3>
                     </div>
                     <div className='container font-3 mt-5'>
                         {this.collectionSummary()}

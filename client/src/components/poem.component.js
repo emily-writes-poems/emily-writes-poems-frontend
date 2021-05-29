@@ -4,9 +4,11 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Button } from 'react-bootstrap';
 
-import ErrorPage from './errorpage.component';
+import Markdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 
-const Markdown = require('react-markdown/with-html');
+import ErrorPage from './errorpage.component';
 
 
 export default class Poem extends Component {
@@ -57,7 +59,7 @@ export default class Poem extends Component {
                     poem_collections_names: []
                 })
 
-                axios.get('http://localhost:5000/poems/collection_by_poem/' + this.state.id)
+                axios.get('http://localhost:5000/poems/collections_by_poem/' + this.state.id)
                 .then(response => {
                     if (response.data != null) {
                         for (let col of response.data) {
@@ -129,7 +131,7 @@ export default class Poem extends Component {
             var collections = this.state.poem_collections_names.map((coll, index) =>
                 <li key={index}>
                     <Link className='link-style no-td' to={'/collection/' + this.state.poem_collections_ids[index]}>
-                        <Button className="button"><Markdown source={coll} escapeHtml={false}/></Button>
+                        <Button className="button"><Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{coll}</Markdown></Button>
                     </Link>
                 </li>
             );
@@ -187,12 +189,12 @@ export default class Poem extends Component {
                 <hr />
                 <div className="behindTitle">
                     <h5 className="font-2 color-accent-1">behind the title. <span className="behindTitleButton" onClick={() => this.expand_hide("behindTitleButton", "behindTitleText")}>[expand +]</span></h5>
-                    <div className="outer"><Markdown className="hidden behindTitleText" source={this.state.behind_title.replace(/\\n/g, '<br /><br />')}/></div>
+                    <div className="outer"><Markdown className="hidden behindTitleText" rehypePlugins={[rehypeRaw, rehypeSanitize]}>{this.state.behind_title.replace(/\\n/g, '<br /><br />')}</Markdown></div>
                 </div>
 
                 <div className="behindPoem">
                     <h5 className="font-2 color-accent-1">behind the poem. <span className="behindPoemButton" onClick={() => this.expand_hide("behindPoemButton", "behindPoemText")}>[expand +]</span></h5>
-                    <div className="outer"><Markdown className="hidden behindPoemText" source={this.state.behind_poem.replace(/\\n/g, '<br /><br />')} escapeHtml={false}/></div>
+                    <div className="outer"><Markdown className="hidden behindPoemText" rehypePlugins={[rehypeRaw, rehypeSanitize]}>{this.state.behind_poem.replace(/\\n/g, '<br /><br />')}</Markdown></div>
                 </div>
 
                 <h5 className="font-2 color-accent-1">lines.</h5>
@@ -202,7 +204,7 @@ export default class Poem extends Component {
                 <p>{this.state.wordcount}</p>
 
                 {this.topWords() && <><h5 className="font-2 color-accent-1">top words.</h5>
-                 <Markdown source={this.topWords()} escapeHtml={false}/></>}
+                 <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{this.topWords()}</Markdown></>}
 
                 {this.poemCollections()}
 
@@ -256,7 +258,7 @@ export default class Poem extends Component {
                         </div>
                     </div>
                     <div className='container poemtext mt-5'>
-                        <Markdown source={this.poemText()} escapeHtml={false}/>
+                        <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{this.poemText()}</Markdown>
                     </div>
                     <div className='container poemdetails font-2 mt-5'>
                         {this.poemDetails()}

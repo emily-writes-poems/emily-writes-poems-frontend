@@ -50,11 +50,11 @@ poemRoutes.route('/poem/:poem_id').get(function(req, res) {
 
 
 // Search for collections a given poem is in
-poemRoutes.route('/collection_by_poem/:poem_id').get(function(req, res) {
+poemRoutes.route('/collections_by_poem/:poem_id').get(function(req, res) {
     console.log('>> DEBUG: Querying for poem collection(s) for poem: ' + req.params.poem_id);
     PoemCollection.find({ poem_ids : { $in: [req.params.poem_id] } }, '-_id', function(err, colls) {
         if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
-        else if (!colls.length) { console.log('>> ERROR: No collections found'); return res.json(colls); }
+        else if (!colls.length) { console.log('>> DEBUG: No collections for this poem found'); return res.json(colls); }
         else { return res.json(colls); }
     });
 });
