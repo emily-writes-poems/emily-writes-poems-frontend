@@ -8,7 +8,7 @@ import ThemeSwitcher from './utils/theme-switcher';
 
 import PoemsList from './components/poems-list.component';
 import OldPoem from './components/poem.component';
-import PoemCollection from './components/poem-collection.component';
+import PoemCollection from './components/PoemCollection';
 import Poem from './components/Poem';
 
 import ErrorPage from './components/errorpage.component';
@@ -31,7 +31,9 @@ class App extends React.Component{
                     <Switch>
                         <Route path='/' exact component={PoemsList} />
                         <Route path='/oldpoem/:poem_id' component={OldPoem} />
-                        <Route path='/collection/:collection_id' component={PoemCollection} />
+                        <Route path='/collection/:collection_id'>
+                            <PoemCollection />
+                        </Route>
                         <Route path='/poem/:poem_id'>
                             <Poem />
                         </Route>

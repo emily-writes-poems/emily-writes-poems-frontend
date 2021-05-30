@@ -43,7 +43,7 @@ poemRoutes.route('/poem/:poem_id').get(function(req, res) {
     console.log('>> DEBUG: Querying for poem: ' + req.params.poem_id);
     Poem.findOne({ poem_id: req.params.poem_id}, '-_id', function(err, poem) {
         if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
-        else if (!poem) { console.log('>> ERROR: Poem not found'); return res.json(poem); }
+        else if (!poem) { console.log('>> ERROR: Poem not found'); return res.status(404).send( { errorMessage : 'Poem not found!' } ); }
         else { return res.json(poem); }
     });
 });
@@ -65,7 +65,7 @@ poemRoutes.route('/collection/:collection_id').get(function(req, res) {
     console.log('>> DEBUG: Querying for poem collection by ID: ' + req.params.collection_id);
     PoemCollection.findOne({ collection_id : req.params.collection_id }, '-_id', function(err, coll) {
         if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
-        else if (!coll) { console.log('>> ERROR: poem collection not found'); return res.json(coll); }
+        else if (!coll) { console.log('>> ERROR: poem collection not found'); return res.status(404).send( { errorMessage : 'Collection not found!' } ); }
         else { return res.json(coll); }
     });
 });

@@ -8,7 +8,6 @@ import rehypeSanitize from 'rehype-sanitize';
 import { Helmet } from 'react-helmet';
 import { Badge } from 'react-bootstrap';
 
-
 import LinksList from './LinksList';
 import ErrorPage from './errorpage.component';
 
@@ -16,6 +15,7 @@ import ErrorPage from './errorpage.component';
 
 const Poem = () => {
     const { poem_id } = useParams();
+    const [ poem_not_found, setPoemNotFound ] = useState(false);
     const [ poem_data, setPoemData ] = useState();
     const [ formatted_poem_text, setFormattedPoemText ] = useState();
     const [ collection_ids, setCollectionIDs ] = useState();
@@ -26,8 +26,8 @@ const Poem = () => {
     useEffect(() => {
         const getPoemData = async () => {
             const res = await fetch(`http://localhost:5000/poems/poem/${poem_id}`);
-
-            await res.json().then((data) => setPoemData(data))
+            if (!res.ok) { res.json().then( data => { console.error(`${data.errorMessage}: ${poem_id}`); setPoemNotFound(true); } ) }
+            else { await res.json().then((data) => setPoemData(data)); }
         };
         getPoemData();
         window.scrollTo(0,0);
@@ -82,7 +82,6 @@ const Poem = () => {
 
     return (
         <>
-        { !poem_data && ( <ErrorPage notFound='Poem' /> ) }
         { poem_data &&
             (<div>
                 <Helmet>
@@ -127,11 +126,11 @@ const Poem = () => {
                         <h5 className='font-2 color-accent-1'>top words.</h5>
                         <div className="styledList">
                             <ul>
-                                {Object.keys(poem_data.top_words).map((word, _) =>
+                                { Object.keys(poem_data.top_words).map((word, _) =>
                                     <li key={word}>
                                         {word} <Badge pill variant="secondary">{poem_data.top_words[word]}</Badge>
                                     </li>
-                                )}
+                                ) }
                             </ul>
                         </div>
                     </div>
@@ -153,6 +152,7 @@ const Poem = () => {
                 </div>
             </div>)
         }
+        { poem_not_found && ( <ErrorPage notFound='Poem' /> ) }
         </>
     );
 }
