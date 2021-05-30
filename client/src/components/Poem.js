@@ -6,11 +6,15 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 
 import { Helmet } from 'react-helmet';
+import { Badge } from 'react-bootstrap';
+
+
 import LinksList from './LinksList';
+import ErrorPage from './errorpage.component';
 
 
 
-const NewPoem = () => {
+const Poem = () => {
     const { poem_id } = useParams();
     const [ poem_data, setPoemData ] = useState();
     const [ formatted_poem_text, setFormattedPoemText ] = useState();
@@ -26,6 +30,7 @@ const NewPoem = () => {
             await res.json().then((data) => setPoemData(data))
         };
         getPoemData();
+        window.scrollTo(0,0);
     }, [poem_id]);
 
 
@@ -38,17 +43,17 @@ const NewPoem = () => {
             :
             ret += line.replace(/\t/g, '\u0009') + '\n'
         );
-        setFormattedPoemText(ret);
+        poem_data && setFormattedPoemText(ret);
     }, [poem_data])
 
 
-    // Print out poem data
+    // DEBUG : Print out poem data
     useEffect(() => {
         console.log(poem_data);
     }, [poem_data]);
 
 
-    // Print out formatted poem text
+    // DEBUG : Print out formatted poem text
     useEffect(() => {
         console.log(formatted_poem_text);
     }, [formatted_poem_text]);
@@ -60,24 +65,24 @@ const NewPoem = () => {
             const res = await fetch(`http://localhost:5000/poems/collections_by_poem/${poem_id}`);
 
             await res.json().then((data) => {
-                setCollectionIDs(data.map((coll, _) => coll.collection_id));
-                setCollectionNames(data.map((coll, _) => coll.collection_name));
-            })
+                setCollectionIDs(data.map((coll) => coll.collection_id));
+                setCollectionNames(data.map((coll) => coll.collection_name));
+            });
         };
-        getCollections();
-    }, [poem_id]);
+        poem_data && getCollections();
+    }, [poem_id, poem_data]);
 
 
-    // Print out collections data
-     useEffect(() => {
-        console.log(collection_ids);
-        console.log(collection_names);
-     }, [collection_ids, collection_names]);
-
+    // DEBUG: Print out collections data
+    useEffect(() => {
+       console.log(collection_ids);
+       console.log(collection_names);
+    }, [collection_ids, collection_names]);
 
 
     return (
         <>
+        { !poem_data && ( <ErrorPage notFound='Poem' /> ) }
         { poem_data &&
             (<div>
                 <Helmet>
@@ -117,14 +122,33 @@ const NewPoem = () => {
                         <p>{poem_data.poem_wordcount}</p>
                     </div>
 
-                    { poem_data.top_words &&
+                    { (poem_data.top_words && poem_data.top_words.length !== 0) &&
                     <div>
                         <h5 className='font-2 color-accent-1'>top words.</h5>
+                        <div className="styledList">
+                            <ul>
+                                {Object.keys(poem_data.top_words).map((word, _) =>
+                                    <li key={word}>
+                                        {word} <Badge pill variant="secondary">{poem_data.top_words[word]}</Badge>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                    </div>
+                    }
+
+                    { poem_data.similar_poems_ids &&
+                    <div>
+                        <h5 className='font-2 color-accent-1'>similar poems.</h5>
+                        <LinksList link_path={'poem'} link_IDs={poem_data.similar_poems_ids} link_titles={poem_data.similar_poems_titles}/>
                     </div>
                     }
 
                     { (collection_ids && collection_ids.length !== 0) &&
-                    <LinksList link_path={'collection'} link_IDs={collection_ids} link_titles={collection_names}/>
+                    <div>
+                        <h5 className='font-2 color-accent-1'>collection(s).</h5>
+                        <LinksList link_path={'collection'} link_IDs={collection_ids} link_titles={collection_names}/>
+                    </div>
                     }
                 </div>
             </div>)
@@ -133,4 +157,4 @@ const NewPoem = () => {
     );
 }
 
-export default NewPoem;
+export default Poem;

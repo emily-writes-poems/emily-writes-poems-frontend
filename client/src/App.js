@@ -7,9 +7,9 @@ import Footer from './utils/footer';
 import ThemeSwitcher from './utils/theme-switcher';
 
 import PoemsList from './components/poems-list.component';
-import Poem from './components/poem.component';
+import OldPoem from './components/poem.component';
 import PoemCollection from './components/poem-collection.component';
-import NewPoem from './components/Poem';
+import Poem from './components/Poem';
 
 import ErrorPage from './components/errorpage.component';
 
@@ -30,10 +30,10 @@ class App extends React.Component{
                     <Header />
                     <Switch>
                         <Route path='/' exact component={PoemsList} />
-                        <Route path='/poem/:poem_id' component={Poem} />
+                        <Route path='/oldpoem/:poem_id' component={OldPoem} />
                         <Route path='/collection/:collection_id' component={PoemCollection} />
-                        <Route path='/newpoem/:poem_id'>
-                            <NewPoem />
+                        <Route path='/poem/:poem_id'>
+                            <Poem />
                         </Route>
                         <Route path='*' component={ErrorPage} />
                     </Switch>

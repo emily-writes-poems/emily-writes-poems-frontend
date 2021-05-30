@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
+import { Badge } from 'react-bootstrap';
 
 import About from '../utils/about';
 import ErrorPage from './errorpage.component';
@@ -58,7 +59,7 @@ export default class PoemsList extends Component {
                     </Helmet>
                     <About />
                     <div className='container font-2'>
-                       <h3 className='color-accent-2 my-4' align='center'>my poems. ({this.state.poems.length})</h3>
+                       <h3 className='color-accent-2 my-4' align='center'>my poems. <Badge pill variant="secondary">{this.state.poems.length}</Badge></h3>
                        <Feature />
                        <ul>{this.poemsList()}</ul>
                     </div>

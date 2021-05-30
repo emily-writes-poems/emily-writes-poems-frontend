@@ -19,7 +19,7 @@ const LinksList = (props) => {
         setLinkPath(props.link_path);
         setLinkIDs(props.link_IDs);
         setLinkTitles(props.link_titles);
-    }, [props]);
+    }, [props.link_path, props.link_IDs, props.link_titles]);
 
 
     useEffect(() => {
@@ -35,21 +35,16 @@ const LinksList = (props) => {
             ));
             setLinkButtons(link_buttons);
         }
-    }, [link_IDs, link_titles]);
+    }, [link_path, link_IDs, link_titles]);
 
 
     return (
         <>
-        {
-            <div>
-                <h5 className='font-2 color-accent-1'>collection(s).</h5>
-                <div className="styledButtonLinks">
-                    <ul>
-                        {link_buttons}
-                    </ul>
-                </div>
-            </div>
-        }
+        <div className="styledList">
+            <ul>
+                {link_buttons}
+            </ul>
+        </div>
         </>
     )
 

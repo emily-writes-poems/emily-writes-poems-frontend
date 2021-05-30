@@ -11,7 +11,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import ErrorPage from './errorpage.component';
 
 
-export default class Poem extends Component {
+export default class OldPoem extends Component {
     constructor(props) {
         super(props);
         this.state = {

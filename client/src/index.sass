@@ -17,7 +17,7 @@ $color-accent-night: #8A88D2
 .night
     background-color: $color-background-night
     color: $color-text-night
-    .styledButtonLinks li .button
+    .styledList li .button
         &, &:active, &:active:focus
             background-color: $color-background-night
             color: $color-text-night
@@ -120,6 +120,9 @@ html, body, #root
     font-weight: 300
     margin-bottom: 0
 
+.badge-secondary
+    background-color: $color-accent-2 !important
+
 .behindTitle, .behindPoem
     span
         margin-left: 0.7em
@@ -132,7 +135,7 @@ html, body, #root
     .shown
         display: block
 
-.styledButtonLinks
+.styledList
     ul
         margin-top: 5px
         list-style-type: none

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
-import { Button } from 'react-bootstrap';
+import { Button, Badge } from 'react-bootstrap';
 import Markdown from 'react-markdown';
 
 import ErrorPage from './errorpage.component';
@@ -62,8 +62,8 @@ export default class PoemCollection extends Component {
         );
 
         return (
-            <div className='styledButtonLinks'>
-                <h5 className="font-2 color-accent-1">poems in collection. ({this.state.poem_ids.length})</h5>
+            <div className='styledList'>
+                <h5 className="font-2 color-accent-1">poems in collection. <Badge pill variant="secondary">{this.state.poem_ids.length}</Badge></h5>
                 <ul>
                     {links}
                 </ul>
