@@ -22,7 +22,6 @@ function ThemeSwitcher(){
 
     function toggle() {
         set_mode(localStorage.getItem('mode') === 'day' ? 'night' : 'day');
-        // console.log(localStorage.getItem('mode'));
     }
 
     return(

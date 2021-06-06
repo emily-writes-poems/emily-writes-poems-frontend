@@ -1,6 +1,6 @@
 import React from 'react';
 
-function About(){
+const About = () => {
     return (
         <div className='container about'>
             <p className='font-2 color-accent-2' align='center'>Poems about myself, the world as I see it, and the people and worlds that I've created and imagined.</p>

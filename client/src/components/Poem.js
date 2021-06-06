@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { Helmet } from 'react-helmet';
+import { Badge } from 'react-bootstrap';
+
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 
-import { Helmet } from 'react-helmet';
-import { Badge } from 'react-bootstrap';
-
-import LinksList from './LinksList';
+import LinksList from '../utils/LinksList';
 import ErrorPage from './errorpage.component';
-
 
 
 const Poem = () => {
@@ -25,7 +24,7 @@ const Poem = () => {
     // Fetch poem data from server
     useEffect(() => {
         const getPoemData = async () => {
-            const res = await fetch(`http://localhost:5000/poems/poem/${poem_id}`);
+            const res = await fetch(`/poems/poem/${poem_id}`);
             if (!res.ok) { res.json().then( data => { console.error(`${data.errorMessage}: ${poem_id}`); setPoemNotFound(true); } ) }
             else { await res.json().then((data) => setPoemData(data)); }
         };

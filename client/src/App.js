@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Header from './utils/header';
-import Footer from './utils/footer';
+import Header from './utils/Header';
+import Footer from './utils/Footer';
 import ThemeSwitcher from './utils/theme-switcher';
 
-import PoemsList from './components/poems-list.component';
+import Home from './components/Home';
 import OldPoem from './components/poem.component';
 import PoemCollection from './components/PoemCollection';
 import Poem from './components/Poem';
@@ -29,14 +29,9 @@ class App extends React.Component{
                 <div>
                     <Header />
                     <Switch>
-                        <Route path='/' exact component={PoemsList} />
-                        <Route path='/oldpoem/:poem_id' component={OldPoem} />
-                        <Route path='/collection/:collection_id'>
-                            <PoemCollection />
-                        </Route>
-                        <Route path='/poem/:poem_id'>
-                            <Poem />
-                        </Route>
+                        <Route exact path='/'><Home /></Route>
+                        <Route path='/collection/:collection_id'><PoemCollection /></Route>
+                        <Route path='/poem/:poem_id'><Poem /></Route>
                         <Route path='*' component={ErrorPage} />
                     </Switch>
                     <Footer />

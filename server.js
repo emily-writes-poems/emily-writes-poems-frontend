@@ -29,7 +29,7 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
 // Get all poems
 poemRoutes.route('/').get(function(req, res) {
     console.log('>> DEBUG: Fetching all poems')
-    Poem.find({}, '-_id', function(err, poems) {
+    Poem.find({}, {"poem_id":1, "poem_title":1, _id:0}, function(err, poems) {
        if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
        else { return res.json(poems); }
     })
@@ -52,7 +52,7 @@ poemRoutes.route('/poem/:poem_id').get(function(req, res) {
 // Search for collections a given poem is in
 poemRoutes.route('/collections_by_poem/:poem_id').get(function(req, res) {
     console.log('>> DEBUG: Querying for poem collection(s) for poem: ' + req.params.poem_id);
-    PoemCollection.find({ poem_ids : { $in: [req.params.poem_id] } }, '-_id', function(err, colls) {
+    PoemCollection.find({ poem_ids : { $in: [req.params.poem_id] } }, {"collection_id":1, "collection_name":1, _id:0}, function(err, colls) {
         if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
         else if (!colls.length) { console.log('>> DEBUG: No collections for this poem found'); return res.json(colls); }
         else { return res.json(colls); }
@@ -76,7 +76,7 @@ poemRoutes.route('/feature/').get(function(req, res) {
     console.log('>> DEBUG: Querying for current feature');
     Feature.findOne( { currently_featured : true }, '-_id -currently_featured', function(err, feat) {
        if(err) { return res.send(err); }
-       else if (!feat) { console.log('>> INFO: No current feature'); return res.json(feat); }
+       else if (!feat) { console.log('>> INFO: No current feature'); return res.status(404).send( { errorMessage : 'No current feature!' } ); }
        else { return res.json(feat); }
     });
 });
