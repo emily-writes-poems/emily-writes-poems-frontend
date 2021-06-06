@@ -17,7 +17,7 @@ $color-accent-night: #8A88D2
 .night
     background-color: $color-background-night
     color: $color-text-night
-    .styledButtonLinks li .button
+    .styledList li .button
         &, &:active, &:active:focus
             background-color: $color-background-night
             color: $color-text-night
@@ -73,7 +73,30 @@ html, body, #root
     font-family: $font-3, sans-serif
 
 .footer-style
-    padding: 5% 0
+    padding: 2% 0
+
+.badge-secondary
+    background-color: $color-accent-2 !important
+
+
+/* STYLED LIST */
+.styledList
+    ul
+        margin-top: 5px
+        list-style-type: none
+        padding-left: 0
+    li
+        font-family: 'Oxygen'
+        display: inline-block
+        padding: 8px 0px
+        margin-right: 20px
+        .button
+            &, &:active, &:active:focus
+                color: black
+                background-color: $color-background
+                border-radius: 2em
+                border-color: $color-accent-1
+                box-shadow: none !important
 
 
 /* ABOUT COMPONENT */
@@ -91,6 +114,7 @@ html, body, #root
         color: $color-accent-2
         padding: 2%
 
+
 /* FEATURE ALERT BOX */
 .feature-alert
     font-family: $font-2
@@ -103,6 +127,7 @@ html, body, #root
     padding: 1%
     .featured-poem
         font-size: 1.25em
+
 
 /* POEM PAGE*/
 .poem-header h3
@@ -131,24 +156,6 @@ html, body, #root
         display: none
     .shown
         display: block
-
-.styledButtonLinks
-    ul
-        margin-top: 5px
-        list-style-type: none
-        padding-left: 0
-    li
-        font-family: 'Oxygen'
-        display: inline-block
-        padding: 8px 0px
-        margin-right: 20px
-        .button
-            &, &:active, &:active:focus
-                color: black
-                background-color: $color-background
-                border-radius: 2em
-                border-color: $color-accent-1
-                box-shadow: none !important
 
 .poemcollections ul h6
     margin-top: 10px

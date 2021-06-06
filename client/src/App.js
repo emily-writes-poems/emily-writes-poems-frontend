@@ -2,11 +2,15 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import PoemsList from './components/poems-list.component';
-import Poem from './components/poem.component';
-import PoemCollection from './components/poem-collection.component';
+import Header from './utils/Header';
+import Footer from './utils/Footer';
+import ThemeSwitcher from './utils/ThemeSwitcher';
 
-import ErrorPage from './components/errorpage.component';
+import Home from './components/Home';
+import PoemCollection from './components/PoemCollection';
+import Poem from './components/Poem';
+
+import ErrorPage from './components/ErrorPage';
 
 import TagManager from 'react-gtm-module';
 
@@ -22,12 +26,15 @@ class App extends React.Component{
         return(
             <Router>
                 <div>
+                    <Header />
                     <Switch>
-                        <Route path='/' exact component={PoemsList} />
-                        <Route path='/poem/:poem_id' component={Poem} />
-                        <Route path='/collection/:collection_id' component={PoemCollection} />
+                        <Route exact path='/'><Home /></Route>
+                        <Route exact path='/collection/:collection_id'><PoemCollection /></Route>
+                        <Route exact path='/poem/:poem_id'><Poem /></Route>
                         <Route path='*' component={ErrorPage} />
                     </Switch>
+                    <Footer />
+                    <ThemeSwitcher />
                 </div>
             </Router>
         );

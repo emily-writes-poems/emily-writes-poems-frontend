@@ -1,10 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Header(){
+const Header = () => {
     return(
         <div className='container mt-4' align='center'>
-            <NavLink className='link-style' to='/'><h1 className='font-1'>Emily.Writes.Poems.</h1></NavLink>
+            <Link className='link-style' to='/'><h1 className='font-1'>Emily.Writes.Poems.</h1></Link>
             <h5 className="font-3 color-accent-2">a collection of my poems.</h5>
             <hr />
         </div>
