@@ -9,7 +9,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 
 import LinksList from '../utils/LinksList';
-import ErrorPage from './errorpage.component';
+import ErrorPage from './ErrorPage';
 
 
 const Poem = () => {
@@ -47,15 +47,15 @@ const Poem = () => {
 
 
     // DEBUG : Print out poem data
-    useEffect(() => {
-        console.log(poem_data);
-    }, [poem_data]);
+    // useEffect(() => {
+    //     console.log(poem_data);
+    // }, [poem_data]);
 
 
     // DEBUG : Print out formatted poem text
-    useEffect(() => {
-        console.log(formatted_poem_text);
-    }, [formatted_poem_text]);
+    // useEffect(() => {
+    //     console.log(formatted_poem_text);
+    // }, [formatted_poem_text]);
 
 
     // Fetch collection(s) from server
@@ -73,10 +73,10 @@ const Poem = () => {
 
 
     // DEBUG: Print out collections data
-    useEffect(() => {
-       console.log(collection_ids);
-       console.log(collection_names);
-    }, [collection_ids, collection_names]);
+    // useEffect(() => {
+    //    console.log(collection_ids);
+    //    console.log(collection_names);
+    // }, [collection_ids, collection_names]);
 
 
     return (

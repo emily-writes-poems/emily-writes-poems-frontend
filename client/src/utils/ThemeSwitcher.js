@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function useLocalStorage(key, initial_value){
+function useLocalStorage(key, initial_value) {
     const [value, set_value] = useState(() => {
         const persisted_value = localStorage.getItem(key);
         return persisted_value !== null ? persisted_value : initial_value;
@@ -13,7 +13,7 @@ function useLocalStorage(key, initial_value){
     return [value, set_value]
 }
 
-function ThemeSwitcher(){
+const ThemeSwitcher = () => {
     const [mode, set_mode] = useLocalStorage('mode', 'day');
 
     useEffect(() => {
@@ -24,7 +24,7 @@ function ThemeSwitcher(){
         set_mode(localStorage.getItem('mode') === 'day' ? 'night' : 'day');
     }
 
-    return(
+    return (
         <div className="theme-switcher">
             <i className="material-icons md-36" onClick={toggle}>brightness_4</i>
         </div>

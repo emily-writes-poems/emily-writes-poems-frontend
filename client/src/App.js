@@ -4,14 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Header from './utils/Header';
 import Footer from './utils/Footer';
-import ThemeSwitcher from './utils/theme-switcher';
+import ThemeSwitcher from './utils/ThemeSwitcher';
 
 import Home from './components/Home';
-import OldPoem from './components/poem.component';
 import PoemCollection from './components/PoemCollection';
 import Poem from './components/Poem';
 
-import ErrorPage from './components/errorpage.component';
+import ErrorPage from './components/ErrorPage';
 
 import TagManager from 'react-gtm-module';
 
@@ -30,8 +29,8 @@ class App extends React.Component{
                     <Header />
                     <Switch>
                         <Route exact path='/'><Home /></Route>
-                        <Route path='/collection/:collection_id'><PoemCollection /></Route>
-                        <Route path='/poem/:poem_id'><Poem /></Route>
+                        <Route exact path='/collection/:collection_id'><PoemCollection /></Route>
+                        <Route exact path='/poem/:poem_id'><Poem /></Route>
                         <Route path='*' component={ErrorPage} />
                     </Switch>
                     <Footer />

@@ -9,7 +9,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 
 import LinksList from '../utils/LinksList';
-import ErrorPage from './errorpage.component';
+import ErrorPage from './ErrorPage';
 
 
 const PoemCollection = () => {
@@ -30,9 +30,9 @@ const PoemCollection = () => {
 
 
     // DEBUG : Print out collection data
-    useEffect(() => {
-        console.log(collection_data);
-    }, [collection_data]);
+    // useEffect(() => {
+    //     console.log(collection_data);
+    // }, [collection_data]);
 
 
     return (
