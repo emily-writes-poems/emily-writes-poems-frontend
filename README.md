@@ -20,5 +20,5 @@ A webapp displaying the text and details of my poetry.
 ![Fonts](./images/ewp-fonts.png)
 
 #### Project logos
-![Project logo](./images/ewp-logo.png =100x100)
-![Project alt logo](./images/ewp-logo-alt.png =100x100)
+![Project logo](./images/ewp-logo.png)
+![Project alt logo](./images/ewp-logo-alt.png)
