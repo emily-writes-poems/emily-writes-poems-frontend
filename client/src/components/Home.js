@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Badge } from 'react-bootstrap';
 
-import About from '../utils/about';
+import About from '../utils/About';
 import Feature from '../utils/Feature';
 
 
