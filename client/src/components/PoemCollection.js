@@ -22,8 +22,14 @@ const PoemCollection = () => {
     useEffect(() => {
         const getCollectionData = async () => {
             const res = await fetch(`/poems/collection/${collection_id}`);
-            if (!res.ok) { res.json().then( data => { console.error(`${data.errorMessage}: ${collection_id}`); setCollectionNotFound(true); } ) }
-            else { await res.json().then( data => setCollectionData(data) ); }
+            if (!res.ok) { res.json().then( data => { console.error(data.errorMessage); } ) }
+            else { await res.json().then((data) => {
+                if (Object.keys(data).length === 0) {
+                    setCollectionNotFound(true);
+                } else {
+                    setCollectionData(data);
+                }
+            }); }
         };
         getCollectionData();
     }, [collection_id]);

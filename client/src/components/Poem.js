@@ -25,8 +25,14 @@ const Poem = () => {
     useEffect(() => {
         const getPoemData = async () => {
             const res = await fetch(`/poems/poem/${poem_id}`);
-            if (!res.ok) { res.json().then( data => { console.error(`${data.errorMessage}: ${poem_id}`); setPoemNotFound(true); } ) }
-            else { await res.json().then((data) => setPoemData(data)); }
+            if (!res.ok) { res.json().then( data => { console.error(data.errorMessage); } ) }
+            else { await res.json().then((data) => {
+                if (Object.keys(data).length === 0) {
+                    setPoemNotFound(true);
+                } else {
+                    setPoemData(data);
+                }
+            }); }
         };
         getPoemData();
         window.scrollTo(0,0);
@@ -62,14 +68,15 @@ const Poem = () => {
     useEffect(() => {
         const getCollections = async () => {
             const res = await fetch(`http://localhost:5000/poems/collections_by_poem/${poem_id}`);
-
             await res.json().then((data) => {
-                setCollectionIDs(data.map((coll) => coll.collection_id));
-                setCollectionNames(data.map((coll) => coll.collection_name));
+                if (Object.keys(data).length !== 0) {
+                    setCollectionIDs(data.map((coll) => coll.collection_id));
+                    setCollectionNames(data.map((coll) => coll.collection_name));
+                }
             });
         };
-        poem_data && getCollections();
-    }, [poem_id, poem_data]);
+        getCollections();
+    }, [poem_id]);
 
 
     // DEBUG: Print out collections data

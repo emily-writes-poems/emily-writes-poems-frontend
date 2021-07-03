@@ -43,7 +43,7 @@ poemRoutes.route('/poem/:poem_id').get(function(req, res) {
     console.log('>> DEBUG: Querying for poem: ' + req.params.poem_id);
     Poem.findOne({ poem_id: req.params.poem_id}, '-_id', function(err, poem) {
         if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
-        else if (!poem) { console.log('>> ERROR: Poem not found'); return res.status(404).send( { errorMessage : 'Poem not found!' } ); }
+        else if (!poem) { console.log('>> ERROR: Poem not found'); return res.json({}); }
         else { return res.json(poem); }
     });
 });
@@ -54,7 +54,7 @@ poemRoutes.route('/collections_by_poem/:poem_id').get(function(req, res) {
     console.log('>> DEBUG: Querying for poem collection(s) for poem: ' + req.params.poem_id);
     PoemCollection.find({ poem_ids : { $in: [req.params.poem_id] } }, {"collection_id":1, "collection_name":1, _id:0}, function(err, colls) {
         if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
-        else if (!colls.length) { console.log('>> DEBUG: No collections for this poem found'); return res.json(colls); }
+        else if (!colls.length) { console.log('>> DEBUG: No collections for this poem found'); return res.json({}); }
         else { return res.json(colls); }
     });
 });
@@ -65,7 +65,7 @@ poemRoutes.route('/collection/:collection_id').get(function(req, res) {
     console.log('>> DEBUG: Querying for poem collection by ID: ' + req.params.collection_id);
     PoemCollection.findOne({ collection_id : req.params.collection_id }, '-_id', function(err, coll) {
         if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
-        else if (!coll) { console.log('>> ERROR: poem collection not found'); return res.status(404).send( { errorMessage : 'Collection not found!' } ); }
+        else if (!coll) { console.log('>> ERROR: poem collection not found'); return res.json({}); }
         else { return res.json(coll); }
     });
 });
@@ -76,7 +76,7 @@ poemRoutes.route('/feature/').get(function(req, res) {
     console.log('>> DEBUG: Querying for current feature');
     Feature.findOne( { currently_featured : true }, '-_id -currently_featured', function(err, feat) {
        if(err) { return res.send(err); }
-       else if (!feat) { console.log('>> INFO: No current feature'); return res.status(404).send( { errorMessage : 'No current feature!' } ); }
+       else if (!feat) { console.log('>> DEBUG: No current feature'); return res.json({}); }
        else { return res.json(feat); }
     });
 });

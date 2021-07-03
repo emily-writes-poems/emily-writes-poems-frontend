@@ -9,7 +9,11 @@ const FeaturedPoem = () => {
         const getFeature = async () => {
             const res = await fetch('/poems/feature');
             if(!res.ok) { res.json().then( data => { console.error(data.errorMessage); } ) }
-            else { await res.json().then( data => setFeature(data) ); }
+            else { await res.json().then( data => {
+                if (Object.keys(data).length !== 0) {
+                    setFeature(data);
+                }
+            }); }
         };
         getFeature();
     }, [])
