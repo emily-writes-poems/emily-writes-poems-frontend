@@ -67,7 +67,7 @@ const Poem = () => {
     // Fetch collection(s) from server
     useEffect(() => {
         const getCollections = async () => {
-            const res = await fetch(`http://localhost:5000/poems/collections_by_poem/${poem_id}`);
+            const res = await fetch(`/poems/collections_by_poem/${poem_id}`);
             await res.json().then((data) => {
                 if (Object.keys(data).length !== 0) {
                     setCollectionIDs(data.map((coll) => coll.collection_id));
