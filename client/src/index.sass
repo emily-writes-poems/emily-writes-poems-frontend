@@ -145,13 +145,19 @@ html, body, #root
     font-weight: 300
     margin-bottom: 0
 
+.eh
+    font-size: 0.75em
+    &:after
+        margin-left: 15px
+        cursor: pointer
+
+.expand:after
+    content: '(expand\002B)'
+
+.hide:after
+    content: '(hide\002B)'
+
 .behindTitle, .behindPoem
-    span
-        margin-left: 0.7em
-        font-size: 0.7em
-        &:hover
-            cursor: pointer
-            text-decoration: underline
     .hidden
         display: none
     .shown

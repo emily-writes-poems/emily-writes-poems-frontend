@@ -20,6 +20,9 @@ const Poem = () => {
     const [ collection_ids, setCollectionIDs ] = useState();
     const [ collection_names, setCollectionNames ] = useState();
 
+    const [ behindTitleHidden, setBehindTitleToggle ] = useState(true);
+    const [ behindPoemHidden, setBehindPoemToggle ] = useState(true);
+
 
     // Fetch poem data from server
     useEffect(() => {
@@ -52,18 +55,6 @@ const Poem = () => {
     }, [poem_data])
 
 
-    // DEBUG : Print out poem data
-    // useEffect(() => {
-    //     console.log(poem_data);
-    // }, [poem_data]);
-
-
-    // DEBUG : Print out formatted poem text
-    // useEffect(() => {
-    //     console.log(formatted_poem_text);
-    // }, [formatted_poem_text]);
-
-
     // Fetch collection(s) from server
     useEffect(() => {
         const getCollections = async () => {
@@ -72,6 +63,9 @@ const Poem = () => {
                 if (Object.keys(data).length !== 0) {
                     setCollectionIDs(data.map((coll) => coll.collection_id));
                     setCollectionNames(data.map((coll) => coll.collection_name));
+                } else {
+                    setCollectionIDs([]);
+                    setCollectionNames([]);
                 }
             });
         };
@@ -79,11 +73,11 @@ const Poem = () => {
     }, [poem_id]);
 
 
-    // DEBUG: Print out collections data
-    // useEffect(() => {
-    //    console.log(collection_ids);
-    //    console.log(collection_names);
-    // }, [collection_ids, collection_names]);
+    // Reset expand option for behind title & behind poem sections
+    useEffect(() => {
+        setBehindTitleToggle(true);
+        setBehindPoemToggle(true);
+    }, [poem_id])
 
 
     return (
@@ -108,13 +102,13 @@ const Poem = () => {
                 <div className='container poemdetails font-2 mt-5'>
                     <hr/>
                     <div className='behindTitle'>
-                        <h5 className='font-2 color-accent-1'>behind the title.</h5>
-                        <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem_data.poem_behind_title}</Markdown>
+                        <h5 className='font-2 color-accent-1'>behind the title.<span className={'eh ' + ( behindTitleHidden ? 'expand' : 'hide' )} onClick={() => setBehindTitleToggle(!behindTitleHidden)}></span></h5>
+                        <Markdown className={'behindTitleText ' + ( behindTitleHidden ? 'hidden' : 'shown' )} rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem_data.poem_behind_title}</Markdown>
                     </div>
 
                     <div className='behindPoem'>
-                        <h5 className='font-2 color-accent-1'>behind the poem.</h5>
-                        <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem_data.poem_behind_poem}</Markdown>
+                        <h5 className='font-2 color-accent-1'>behind the poem.<span className={'eh ' + ( behindPoemHidden ? 'expand' : 'hide' )} onClick={() => setBehindPoemToggle(!behindPoemHidden)}></span></h5>
+                        <Markdown className={'behindPoemText ' + ( behindPoemHidden ? 'hidden' : 'shown' )} rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem_data.poem_behind_poem}</Markdown>
                     </div>
 
                     <div>
