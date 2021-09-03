@@ -14,9 +14,6 @@ import ErrorPage from './components/ErrorPage';
 
 import TagManager from 'react-gtm-module';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
-library.add(faSun, faMoon);
 
 const tagManagerArgs = { gtmId: 'GTM-NHQ4NHC' }
 TagManager.initialize(tagManagerArgs);

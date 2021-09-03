@@ -9,27 +9,31 @@ $color-accent-2: #817e92
 
 $color-background-night: #1A1324
 $color-text-night: #C6BCD8
-$color-glow-night: #CECBD4
-$color-accent-night: #8A88D2
+$color-accent-night-1: #CECBD4
+$color-accent-night-2: #8A88D2
 
 
 /* NIGHT THEME */
 .night
     background-color: $color-background-night
     color: $color-text-night
-    .styledList li .button
+    ul li .button
         &, &:active, &:active:focus
             background-color: $color-background-night
             color: $color-text-night
-            box-shadow: 0px 0px 10px $color-glow-night !important
         &:active
             border: 0.5px solid $color-background-night
     hr
-        background-color: $color-glow-night
+        background-color: $color-accent-night-1
     .feature-alert
-        background-color: $color-accent-night
-        border: 2px solid $color-glow-night
+        background-color: $color-accent-night-2
+        border: 2px solid $color-accent-night-1
         color: $color-background-night
+    .poems-list-list li
+        list-style-type: circle
+        color: $color-accent-night-2
+        .list-link-style, .list-link-style:hover
+            color: $color-text-night
 
 
 /* GLOBAL STYLES */
@@ -51,7 +55,11 @@ html, body, #root
     overflow: auto
     font-size: 16px
 
+
 .link-style, .link-style:hover
+    color: $color-accent-1
+
+.list-link-style, .list-link-style:hover
     color: $color-accent-1
 
 .no-td, .no-td:hover
@@ -79,7 +87,7 @@ html, body, #root
     background-color: $color-accent-2 !important
 
 
-/* STYLED LIST */
+/* STYLED LINKS LIST */
 .styledList
     ul
         margin-top: 5px
@@ -118,15 +126,51 @@ html, body, #root
 /* FEATURE ALERT BOX */
 .feature-alert
     font-family: $font-2
-    background-color: $color-glow-night
-    border: 2px solid $color-accent-night
+    font-size: 0.9em
+    background-color: $color-accent-night-1
+    border: 2px solid $color-accent-night-2
     color: $color-accent-2
-    width: 85%
     text-align: center
-    margin: 0 auto 5% auto
+    width: 80%
+    margin: 0 auto
     padding: 1%
     .featured-poem
         font-size: 1.25em
+
+
+/* POEMS LIST */
+.poems-list-formatter
+    margin: 2% 0
+    text-align: center
+    .material-icons
+        font-size: 36px
+        margin: 10px
+        &:hover
+            cursor: pointer
+            color: $color-accent-1
+        color: $color-accent-night-2
+
+.poems-list-list li
+    list-style-type: disc
+    color: $color-accent-night-1
+
+.poems-list-block
+    ul
+        margin-top: 5px
+        list-style-type: none
+        padding-left: 0
+    li
+        font-family: 'Oxygen'
+        display: inline-block
+        padding: 10px 0px
+        margin-right: 30px
+        .button
+            &, &:active, &:active:focus
+                color: $color-accent-1
+                background-color: $color-background
+                border-radius: 2em
+                border-color: $color-accent-1
+                box-shadow: none !important
 
 
 /* POEM PAGE*/
@@ -145,10 +189,11 @@ html, body, #root
     font-weight: 300
     margin-bottom: 0
 
+/* expand/hide "behind" sections */
 .eh
     font-size: 0.75em
+    margin-left: 15px
     &:after
-        margin-left: 15px
         cursor: pointer
 
 .expand:after
@@ -177,8 +222,8 @@ ul p
     right: 3%
     bottom: 3%
 
-.material-icons.md-36
-    font-size: 36px
-    &:hover
-        cursor: pointer
-    color: $color-accent-2
+    .material-icons
+        font-size: 48px
+        &:hover
+            cursor: pointer
+        color: $color-accent-2

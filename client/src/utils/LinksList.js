@@ -26,7 +26,7 @@ const LinksList = (props) => {
         if(link_IDs && link_titles) {
             const link_buttons = link_IDs.map((link_id, index) => (
                 <li key={index}>
-                    <Link className='link-style no-td' to={'/' + link_path + '/' + link_id}>
+                    <Link className='no-td' to={'/' + link_path + '/' + link_id}>
                         <Button className="button">
                             <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{link_titles[index]}</Markdown>
                         </Button>
