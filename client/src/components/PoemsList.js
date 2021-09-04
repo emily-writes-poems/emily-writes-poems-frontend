@@ -27,7 +27,7 @@ const PoemsList = (props) => {
     return (
         <>
         { poems_list && [list_style === "list" ?
-            <ul className="poems-list-list">
+            <ul className="list-list">
                 { poems_list.map((poem, index) =>
                     <li>
                         <Link className="list-link-style" to={'/poem/' + poem.poem_id}>
@@ -37,7 +37,7 @@ const PoemsList = (props) => {
                  ) }
             </ul>
             :
-            <ul className="poems-list-block">
+            <ul className="list-block">
                 { poems_list.map((poem) =>
                     <li>
                         <Link to={'/poem/' + poem.poem_id}>
