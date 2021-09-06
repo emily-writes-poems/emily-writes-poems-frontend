@@ -10,18 +10,12 @@ import rehypeSanitize from 'rehype-sanitize';
 
 const CollectionsList = (props) => {
     const [ collections_list, setcollectionsList ] = useState();
-    const [ list_style, setListStyle ] = useState();
 
     // Set collections list from passed props
     useEffect(() => {
         setcollectionsList(props.collections_list);
     }, [props.collections_list]);
 
-
-    // Toggle list style
-    useEffect(() => {
-        setListStyle(props.list_style);
-    }, [props.list_style]);
 
 
     return (

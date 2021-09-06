@@ -49,7 +49,7 @@ const Home = () => {
                 <div className='container font-2'>
                     <h3 className='color-accent-2 my-4' align='center'>my poems. <Badge pill variant="secondary">{poems_list.length}</Badge></h3>
                     <Feature />
-                    <div className='list-formatter'>
+                    <div className='poems-list-formatter'>
                         <i className="material-icons" onClick={() => toggle_poems_list_style("list")}>format_list_bulleted</i>
                         <i className="material-icons" onClick={() => toggle_poems_list_style("block")}>grid_view</i>
                     </div>

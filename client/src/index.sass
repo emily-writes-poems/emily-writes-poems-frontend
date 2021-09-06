@@ -17,23 +17,23 @@ $color-accent-night-2: #8A88D2
 .night
     background-color: $color-background-night
     color: $color-text-night
-    ul li .button
+    .styledList ul li .button
         &, &:active, &:active:focus
             background-color: $color-background-night
             color: $color-text-night
-        &:active
-            border: 0.5px solid $color-background-night
+            border-color: $color-accent-night-1
+    .list-block li .button
+        &, &:active, &:active:focus
+            background-color: $color-background-night
+            color: $color-accent-1
+            border-color: $color-accent-night-1
+
     hr
         background-color: $color-accent-night-1
     .feature-alert
         background-color: $color-accent-night-2
         border: 2px solid $color-accent-night-1
         color: $color-background-night
-    .poems-list-list li
-        list-style-type: circle
-        color: $color-accent-night-2
-        .list-link-style, .list-link-style:hover
-            color: $color-text-night
 
 
 /* GLOBAL STYLES */
@@ -57,9 +57,6 @@ html, body, #root
 
 
 .link-style, .link-style:hover
-    color: $color-accent-1
-
-.list-link-style, .list-link-style:hover
     color: $color-accent-1
 
 .no-td, .no-td:hover
@@ -87,6 +84,11 @@ html, body, #root
     background-color: $color-accent-2 !important
 
 
+/* for Markdown elements */
+ul p
+    margin: 0
+
+
 /* STYLED LINKS LIST */
 .styledList
     ul
@@ -104,7 +106,6 @@ html, body, #root
                 background-color: $color-background
                 border-radius: 2em
                 border-color: $color-accent-1
-                box-shadow: none !important
 
 
 /* ABOUT COMPONENT */
@@ -114,9 +115,8 @@ html, body, #root
         font-weight: 500
         color: $color-accent-1
         text-align: center
-        padding: 0.5%
         margin: 0 auto
-        width: 30%
+        padding: 0.5%
     details > div
         font-family: $font-1
         color: $color-accent-2
@@ -138,12 +138,13 @@ html, body, #root
         font-size: 1.25em
 
 
-/* Homepage LIST */
-.list-formatter
+/* Homepage lists */
+.poems-list-formatter
     text-align: center
+    margin: 10px 0 25px 0
     .material-icons
-        font-size: 30px
-        margin: 10px
+        font-size: 36px
+        padding: 5px
         &:hover
             cursor: pointer
             color: $color-accent-1
@@ -152,6 +153,8 @@ html, body, #root
 .list-list li
     list-style-type: disc
     color: $color-accent-night-1
+    .list-link-style, .list-link-style:hover
+        color: $color-accent-1
 
 .list-block
     ul
@@ -188,6 +191,7 @@ html, body, #root
     font-weight: 300
     margin-bottom: 0
 
+
 /* expand/hide "behind" sections */
 .eh
     font-size: 0.75em
@@ -210,9 +214,6 @@ html, body, #root
 .poemcollections ul h6
     margin-top: 10px
 
-/* for Markdown elements */
-ul p
-    margin: 0
 
 
 /* THEME SWITCHER */

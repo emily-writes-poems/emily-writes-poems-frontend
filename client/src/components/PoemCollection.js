@@ -35,12 +35,6 @@ const PoemCollection = () => {
     }, [collection_id]);
 
 
-    // DEBUG : Print out collection data
-    // useEffect(() => {
-    //     console.log(collection_data);
-    // }, [collection_data]);
-
-
     return (
         <>
         { collection_data &&
