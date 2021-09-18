@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Badge } from 'react-bootstrap';
 
 import About from '../utils/About';
 import Feature from '../utils/Feature';
+import PoemsList from './PoemsList';
+import CollectionsList from './CollectionsList';
 
 
 const Home = () => {
     const [ poems_list, setPoemsList ] = useState();
+    const [ poems_list_style, setPoemsListStyle ] = useState("list");
+
+    const [ collections_list, setCollectionsList ] = useState();
 
 
     useEffect(() => {
@@ -17,31 +21,52 @@ const Home = () => {
             const res = await fetch('/poems/');
             await res.json().then((data) => setPoemsList(data));
         }
+        const getCollectionsList = async () => {
+            const res = await fetch('/poems/collections/');
+            await res.json().then((data) => setCollectionsList(data));
+        }
         getPoemsList();
+        getCollectionsList();
     }, []);
+
+
+    function toggle_poems_list_style(list_style) {
+        setPoemsListStyle(list_style);
+    }
 
 
     return (
         <>
-        { ( poems_list && poems_list.length !== 0 ) &&
-        <>
+            <>
             <Helmet>
                 <title>Emily Writes Poems</title>
             </Helmet>
             <About />
-            <div className='container font-2'>
-               <h3 className='color-accent-2 my-4' align='center'>my poems. <Badge pill variant="secondary">{poems_list.length}</Badge></h3>
-               <Feature />
-               <ul>
-                   { poems_list.map((poem) =>
-                       <li key={poem.poem_id}>
-                           <Link className='link-style' to={'/poem/' + poem.poem_id}>{poem.poem_title}</Link>
-                       </li>
-                    ) }
-               </ul>
-            </div>
-        </>
-        }
+            </>
+
+            <>
+            { ( poems_list && poems_list.length !== 0 ) &&
+                <div className='container font-2'>
+                    <h3 className='color-accent-2 my-4' align='center'>my poems. <Badge pill variant="secondary">{poems_list.length}</Badge></h3>
+                    <Feature />
+                    <div className='poems-list-formatter'>
+                        <i className="material-icons" onClick={() => toggle_poems_list_style("list")}>format_list_bulleted</i>
+                        <i className="material-icons" onClick={() => toggle_poems_list_style("block")}>grid_view</i>
+                    </div>
+                    <PoemsList poems_list={poems_list} list_style={poems_list_style}/>
+                </div>
+            }
+            </>
+
+            <>
+            { ( collections_list && collections_list.length !== 0 ) &&
+                <div className='container font-2 mt-5'>
+                    <h3 className='color-accent-2 my-4' align='center'>poem collections. <Badge pill variant="secondary">{collections_list.length}</Badge></h3>
+                    <CollectionsList collections_list={collections_list} />
+                </div>
+            }
+            </>
+
         </>
     )
 }

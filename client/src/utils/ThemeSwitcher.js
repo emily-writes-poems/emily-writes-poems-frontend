@@ -26,7 +26,7 @@ const ThemeSwitcher = () => {
 
     return (
         <div className="theme-switcher">
-            <i className="material-icons md-36" onClick={toggle}>brightness_4</i>
+            <i className="material-icons" onClick={toggle}>brightness_4</i>
         </div>
     );
 }

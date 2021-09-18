@@ -60,6 +60,18 @@ poemRoutes.route('/collections_by_poem/:poem_id').get(function(req, res) {
 });
 
 
+// Get all collections
+poemRoutes.route('/collections/').get(function(req, res) {
+    console.log('>> DEBUG: Fetching all collections')
+    PoemCollection.find({}, {"collection_id":1, "collection_name":1, _id:0}, function(err, collections) {
+       if (err) { console.log('?? Unexpected error occurred.'); return res.send(err); }
+       else { return res.json(collections); }
+    })
+    .sort({ collection_name : 1}) // sort by ascending alphabetical
+    .collation({ locale: 'en'}); // case-insensitive collation
+});
+
+
 // Search for collection by ID
 poemRoutes.route('/collection/:collection_id').get(function(req, res) {
     console.log('>> DEBUG: Querying for poem collection by ID: ' + req.params.collection_id);
