@@ -19,15 +19,13 @@ $color-accent-night-2: #8A88D2
     color: $color-text-night
     .styledList ul li .button
         &, &:active, &:active:focus
-            background-color: $color-background-night
-            color: $color-text-night
-            border-color: $color-accent-night-1
+            color: $color-text-night !important
     .list-block li .button
         &, &:active, &:active:focus
-            background-color: $color-background-night
-            color: $color-accent-1
-            border-color: $color-accent-night-1
-
+            color: $color-accent-1 !important
+    .button
+        background-color: $color-background-night !important
+        border-color: $color-accent-night-1 !important
     hr
         background-color: $color-accent-night-1
     .feature-alert
@@ -83,6 +81,12 @@ html, body, #root
 .badge-secondary
     background-color: $color-accent-2 !important
 
+.button
+    background-color: $color-background !important
+    border-radius: 2em !important
+    border-color: $color-accent-1 !important
+    outline: none !important
+    box-shadow: none !important
 
 /* for Markdown elements */
 ul p
@@ -101,11 +105,8 @@ ul p
         padding: 8px 0px
         margin-right: 20px
         .button
-            &, &:active, &:active:focus
-                color: black
-                background-color: $color-background
-                border-radius: 2em
-                border-color: $color-accent-1
+            &, &:active, &:active:focus, &:focus
+                color: black !important
 
 
 /* ABOUT COMPONENT */
@@ -169,10 +170,6 @@ ul p
         .button
             &, &:active, &:active:focus
                 color: $color-accent-1
-                background-color: $color-background
-                border-radius: 2em
-                border-color: $color-accent-1
-                box-shadow: none !important
 
 
 /* POEM PAGE*/
