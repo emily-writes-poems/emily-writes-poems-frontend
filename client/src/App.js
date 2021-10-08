@@ -7,6 +7,7 @@ import Footer from './utils/Footer';
 import ThemeSwitcher from './utils/ThemeSwitcher';
 
 import Home from './components/Home';
+import TermsPrivacy from './components/TermsPrivacy';
 import PoemCollection from './components/PoemCollection';
 import Poem from './components/Poem';
 
@@ -26,6 +27,7 @@ class App extends React.Component{
                     <Header />
                     <Switch>
                         <Route exact path='/'><Home /></Route>
+                        <Route exact path='/terms_privacy'><TermsPrivacy /></Route>
                         <Route exact path='/collection/:collection_id'><PoemCollection /></Route>
                         <Route exact path='/poem/:poem_id'><Poem /></Route>
                         <Route path='*' component={ErrorPage} />
