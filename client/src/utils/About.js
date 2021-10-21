@@ -3,7 +3,7 @@ import React from 'react';
 const About = () => {
     return (
         <div className='container about'>
-            <p className='font-2 color-accent-2' align='center'>Poems about myself, the world as I see it, and the people and worlds that I've created and imagined.</p>
+            <p className='font-2 color-accent-2' align='center'>Poems about myself, the world as I see it, and the worlds that I've created and imagined.</p>
 
             <details>
                 <summary>about me.</summary>

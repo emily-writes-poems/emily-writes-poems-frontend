@@ -17,7 +17,7 @@ const TermsPrivacy = () => {
             <div className='container font-3 mt-5'>
                 <h5 className="font-2 color-accent-1">Introduction.</h5>
                 <p>Welcome to Emily Writes Poems! This page outlines general guidelines for using the site and information about privacy. These terms apply to all visitors. By visiting and using the site, you are agreeing to these terms.</p>
-                <p>Emily Writes Poems is a website for my original writing. All poem text and related content, including statistics and descriptions, are written and maintained by Emily Lau.</p>
+                <p>Emily Writes Poems is a website for my original writing. All poem text and related content, including statistics and descriptions, is created and maintained by Emily Lau.</p>
                 <p>Contact at <span className="color-accent-1">emilywritescode [at] gmail [dot] com</span>.</p>
             </div>
 
