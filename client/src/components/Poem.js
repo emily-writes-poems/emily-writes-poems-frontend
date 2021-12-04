@@ -38,7 +38,6 @@ const Poem = () => {
             }); }
         };
         getPoemData();
-        window.scrollTo(0,0);
     }, [poem_id]);
 
 
@@ -102,12 +101,12 @@ const Poem = () => {
                 <div className='container poemdetails font-2 mt-5'>
                     <hr/>
                     <div className='behindTitle'>
-                        <h5 className='font-2 color-accent-1'>behind the title.<span className={'eh ' + ( behindTitleHidden ? 'expand' : 'hide' )} onClick={() => setBehindTitleToggle(!behindTitleHidden)}></span></h5>
+                        <h5 className='font-2 color-accent-1'>behind the title.<span className={'expand_hide ' + ( behindTitleHidden ? 'expand' : 'hide' )} onClick={() => setBehindTitleToggle(!behindTitleHidden)}></span></h5>
                         <Markdown className={'behindTitleText ' + ( behindTitleHidden ? 'hidden' : 'shown' )} rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem_data.poem_behind_title ? poem_data.poem_behind_title : '*Behind the title to come!*'}</Markdown>
                     </div>
 
                     <div className='behindPoem'>
-                        <h5 className='font-2 color-accent-1'>behind the poem.<span className={'eh ' + ( behindPoemHidden ? 'expand' : 'hide' )} onClick={() => setBehindPoemToggle(!behindPoemHidden)}></span></h5>
+                        <h5 className='font-2 color-accent-1'>behind the poem.<span className={'expand_hide ' + ( behindPoemHidden ? 'expand' : 'hide' )} onClick={() => setBehindPoemToggle(!behindPoemHidden)}></span></h5>
                         <Markdown className={'behindPoemText ' + ( behindPoemHidden ? 'hidden' : 'shown' )} rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem_data.poem_behind_poem ? poem_data.poem_behind_poem : '*Behind the poem to come!*'}</Markdown>
                     </div>
 

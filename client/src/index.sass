@@ -53,7 +53,6 @@ html, body, #root
     overflow: auto
     font-size: 16px
 
-
 .link-style, .link-style:hover
     color: $color-accent-1
 
@@ -85,6 +84,25 @@ html, body, #root
     outline: none !important
     box-shadow: none !important
 
+.hidden
+    display: none
+
+.shown
+    display: block
+
+/* expand/hide */
+.expand_hide
+    font-size: 0.75em
+    cursor: pointer
+    margin-left: 1em
+
+.expand:after
+    content: '(expand\002B)'
+
+.hide:after
+    content: '(hide\002D)'
+
+
 /* for Markdown elements */
 ul p
     margin: 0
@@ -108,17 +126,13 @@ ul p
 
 /* ABOUT COMPONENT */
 .about
-    details > summary
-        font-family: $font-2, sans-serif
-        font-weight: 500
-        color: $color-accent-1
-        text-align: center
-        margin: 0 auto
-        padding: 0.5%
-    details > div
+    text-align: center
+    .section
+        font-family: $font-2
+        padding: 0.25em
+    .summary
         font-family: $font-1
-        color: $color-accent-2
-        padding: 2%
+        padding: 0.5em
 
 
 /* FEATURE ALERT BOX */
@@ -185,29 +199,8 @@ ul p
     font-weight: 300
     margin-bottom: 0
 
-
-/* expand/hide "behind" sections */
-.eh
-    font-size: 0.75em
-    margin-left: 15px
-    &:after
-        cursor: pointer
-
-.expand:after
-    content: '(expand\002B)'
-
-.hide:after
-    content: '(hide\002D)'
-
-.behindTitle, .behindPoem
-    .hidden
-        display: none
-    .shown
-        display: block
-
 .poemcollections ul h6
     margin-top: 10px
-
 
 
 /* THEME SWITCHER */

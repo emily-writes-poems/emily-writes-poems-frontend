@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export function useLocalStorage(key, initial_value) {
     const [value, set_value] = useState(() => {
@@ -11,4 +12,15 @@ export function useLocalStorage(key, initial_value) {
     }, [key, value]);
 
     return [value, set_value]
+}
+
+export function ScrollToTop() {
+    const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+        console.log('heyyyy scrolling to top')
+    }, [location]);
+
+    return null;
 }
