@@ -1,17 +1,5 @@
-import React, { useState, useEffect } from 'react';
-
-function useLocalStorage(key, initial_value) {
-    const [value, set_value] = useState(() => {
-        const persisted_value = localStorage.getItem(key);
-        return persisted_value !== null ? persisted_value : initial_value;
-    });
-
-    useEffect(() => {
-        localStorage.setItem(key, value);
-    }, [key, value]);
-
-    return [value, set_value]
-}
+import React, { useEffect } from 'react';
+import { useLocalStorage } from '../utils/Utils';
 
 const ThemeSwitcher = () => {
     const [mode, set_mode] = useLocalStorage('mode', 'day');

@@ -8,10 +8,12 @@ import Feature from '../utils/Feature';
 import PoemsList from './PoemsList';
 import CollectionsList from './CollectionsList';
 
+import { useLocalStorage } from '../utils/Utils';
+
 
 const Home = () => {
     const [ poems_list, setPoemsList ] = useState();
-    const [ poems_list_style, setPoemsListStyle ] = useState("list");
+    const [ poems_list_style, setPoemsListStyle ] = useLocalStorage('poems_list_style', 'list');
 
     const [ collections_list, setCollectionsList ] = useState();
 
