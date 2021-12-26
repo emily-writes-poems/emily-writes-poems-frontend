@@ -29,13 +29,30 @@ const Poem = () => {
         const getPoemData = async () => {
             const res = await fetch(`/poems/poem/${poem_id}`);
             if (!res.ok) { res.json().then( data => { console.error(data.errorMessage); } ) }
-            else { await res.json().then((data) => {
-                if (Object.keys(data).length === 0) {
-                    setPoemNotFound(true);
-                } else {
-                    setPoemData(data);
-                }
-            }); }
+            else {
+                await res.json().then((data) => {
+                    if (Object.keys(data).length === 0) {  // Poem not found
+                        setPoemNotFound(true);
+                    } else {
+                        setPoemData(data);
+
+                        // Fetch collection(s) from server
+                        const getCollections = async () => {
+                            const res = await fetch(`/poems/collections_by_poem/${poem_id}`);
+                            await res.json().then((data) => {
+                                if (Object.keys(data).length !== 0) {
+                                    setCollectionIDs(data.map((coll) => coll.collection_id));
+                                    setCollectionNames(data.map((coll) => coll.collection_name));
+                                } else {
+                                    setCollectionIDs([]);
+                                    setCollectionNames([]);
+                                }
+                            });
+                        };
+                        getCollections();
+                    }
+                });
+            }
         };
         getPoemData();
     }, [poem_id]);
@@ -52,24 +69,6 @@ const Poem = () => {
         );
         poem_data && setFormattedPoemText(ret);
     }, [poem_data])
-
-
-    // Fetch collection(s) from server
-    useEffect(() => {
-        const getCollections = async () => {
-            const res = await fetch(`/poems/collections_by_poem/${poem_id}`);
-            await res.json().then((data) => {
-                if (Object.keys(data).length !== 0) {
-                    setCollectionIDs(data.map((coll) => coll.collection_id));
-                    setCollectionNames(data.map((coll) => coll.collection_name));
-                } else {
-                    setCollectionIDs([]);
-                    setCollectionNames([]);
-                }
-            });
-        };
-        getCollections();
-    }, [poem_id]);
 
 
     // Reset expand option for behind title & behind poem sections

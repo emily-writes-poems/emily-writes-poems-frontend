@@ -38,7 +38,7 @@ const PoemsList = (props) => {
             </ul>
             :
             <ul className="list-block">
-                { poems_list.map((poem) =>
+                { poems_list.map((poem, index) =>
                     <li>
                         <Link to={'/poem/' + poem.poem_id}>
                              <Button className="button">

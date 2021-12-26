@@ -22,7 +22,7 @@ const CollectionsList = (props) => {
         <>
         { collections_list &&
             <ul className="list-block">
-                { collections_list.map((collection) =>
+                { collections_list.map((collection, index) =>
                     <li>
                         <Link to={'/collection/' + collection.collection_id}>
                              <Button className="button">

@@ -23,13 +23,19 @@ const PoemCollection = () => {
         const getCollectionData = async () => {
             const res = await fetch(`/poems/collection/${collection_id}`);
             if (!res.ok) { res.json().then( data => { console.error(data.errorMessage); } ) }
-            else { await res.json().then((data) => {
-                if (Object.keys(data).length === 0) {
-                    setCollectionNotFound(true);
-                } else {
-                    setCollectionData(data);
-                }
-            }); }
+            else {
+                await res.json().then((data) => {
+                    if (Object.keys(data).length === 0) {  // no collection returned
+                        setCollectionNotFound(true);
+                    } else if (!data.hasOwnProperty("poem_ids") || (!data.hasOwnProperty("poem_titles"))) {  // missing fields
+                        setCollectionNotFound(true);
+                    } else if (data["poem_ids"].length === 0 || data["poem_titles"].length === 0) {
+                        setCollectionNotFound(true);
+                    } else {
+                        setCollectionData(data);
+                    }
+                });
+            }
         };
         getCollectionData();
     }, [collection_id]);

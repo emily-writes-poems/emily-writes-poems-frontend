@@ -25,7 +25,7 @@ const LinksList = (props) => {
     useEffect(() => {
         if(link_IDs && link_titles) {
             const link_buttons = link_IDs.map((link_id, index) => (
-                <li key={index}>
+                <li>
                     <Link className='no-td' to={'/' + link_path + '/' + link_id}>
                         <Button className="button">
                             <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{link_titles[index]}</Markdown>

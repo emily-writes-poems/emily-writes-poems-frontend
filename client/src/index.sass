@@ -51,7 +51,6 @@ html, body, #root
     bottom: 0
     height: 100%
     overflow: auto
-    font-size: 16px
 
 .link-style, .link-style:hover
     color: $color-accent-1
@@ -95,6 +94,7 @@ html, body, #root
     font-size: 0.75em
     cursor: pointer
     margin-left: 1em
+    text-decoration: underline
 
 .expand:after
     content: '(expand\002B)'
@@ -138,14 +138,13 @@ ul p
 /* FEATURE ALERT BOX */
 .feature-alert
     font-family: $font-2
-    font-size: 0.9em
     background-color: $color-accent-night-1
     border: 2px solid $color-accent-night-2
     color: $color-accent-2
     text-align: center
-    width: 80%
+    width: 85%
     margin: 0 auto
-    padding: 1%
+    padding: 1em 1.5em
     .featured-poem
         font-size: 1.25em
 
@@ -153,10 +152,10 @@ ul p
 /* Homepage lists */
 .poems-list-formatter
     text-align: center
-    margin: 10px 0 25px 0
+    margin: 1.5em
     .material-icons
-        font-size: 36px
-        padding: 5px
+        font-size: 2.5em
+        padding: 0.25em
         &:hover
             cursor: pointer
             color: $color-accent-1
