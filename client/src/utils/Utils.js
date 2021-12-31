@@ -19,7 +19,6 @@ export function ScrollToTop() {
 
     useEffect(() => {
         window.scrollTo(0,0);
-        console.log('heyyyy scrolling to top')
     }, [location]);
 
     return null;

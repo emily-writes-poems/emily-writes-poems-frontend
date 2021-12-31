@@ -29,13 +29,30 @@ const Poem = () => {
         const getPoemData = async () => {
             const res = await fetch(`/poems/poem/${poem_id}`);
             if (!res.ok) { res.json().then( data => { console.error(data.errorMessage); } ) }
-            else { await res.json().then((data) => {
-                if (Object.keys(data).length === 0) {
-                    setPoemNotFound(true);
-                } else {
-                    setPoemData(data);
-                }
-            }); }
+            else {
+                await res.json().then((data) => {
+                    if (Object.keys(data).length === 0) {  // Poem not found
+                        setPoemNotFound(true);
+                    } else {
+                        setPoemData(data);
+
+                        // Fetch collection(s) from server
+                        const getCollections = async () => {
+                            const res = await fetch(`/poems/collections_by_poem/${poem_id}`);
+                            await res.json().then((data) => {
+                                if (Object.keys(data).length !== 0) {
+                                    setCollectionIDs(data.map((coll) => coll.collection_id));
+                                    setCollectionNames(data.map((coll) => coll.collection_name));
+                                } else {
+                                    setCollectionIDs([]);
+                                    setCollectionNames([]);
+                                }
+                            });
+                        };
+                        getCollections();
+                    }
+                });
+            }
         };
         getPoemData();
     }, [poem_id]);
@@ -52,24 +69,6 @@ const Poem = () => {
         );
         poem_data && setFormattedPoemText(ret);
     }, [poem_data])
-
-
-    // Fetch collection(s) from server
-    useEffect(() => {
-        const getCollections = async () => {
-            const res = await fetch(`/poems/collections_by_poem/${poem_id}`);
-            await res.json().then((data) => {
-                if (Object.keys(data).length !== 0) {
-                    setCollectionIDs(data.map((coll) => coll.collection_id));
-                    setCollectionNames(data.map((coll) => coll.collection_name));
-                } else {
-                    setCollectionIDs([]);
-                    setCollectionNames([]);
-                }
-            });
-        };
-        getCollections();
-    }, [poem_id]);
 
 
     // Reset expand option for behind title & behind poem sections
@@ -100,13 +99,13 @@ const Poem = () => {
 
                 <div className='container poemdetails font-2 mt-5'>
                     <hr/>
-                    <div className='behindTitle'>
-                        <h5 className='font-2 color-accent-1'>behind the title.<span className={'expand_hide ' + ( behindTitleHidden ? 'expand' : 'hide' )} onClick={() => setBehindTitleToggle(!behindTitleHidden)}></span></h5>
+                    <div>
+                        <h5 className='font-2 color-accent-1'>behind the title.<span className={'behind_title expand_hide ' + ( behindTitleHidden ? 'expand' : 'hide' )} onClick={() => setBehindTitleToggle(!behindTitleHidden)}></span></h5>
                         <Markdown className={'behindTitleText ' + ( behindTitleHidden ? 'hidden' : 'shown' )} rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem_data.poem_behind_title ? poem_data.poem_behind_title : '*Behind the title to come!*'}</Markdown>
                     </div>
 
-                    <div className='behindPoem'>
-                        <h5 className='font-2 color-accent-1'>behind the poem.<span className={'expand_hide ' + ( behindPoemHidden ? 'expand' : 'hide' )} onClick={() => setBehindPoemToggle(!behindPoemHidden)}></span></h5>
+                    <div>
+                        <h5 className='font-2 color-accent-1'>behind the poem.<span className={'behind_poem expand_hide ' + ( behindPoemHidden ? 'expand' : 'hide' )} onClick={() => setBehindPoemToggle(!behindPoemHidden)}></span></h5>
                         <Markdown className={'behindPoemText ' + ( behindPoemHidden ? 'hidden' : 'shown' )} rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem_data.poem_behind_poem ? poem_data.poem_behind_poem : '*Behind the poem to come!*'}</Markdown>
                     </div>
 

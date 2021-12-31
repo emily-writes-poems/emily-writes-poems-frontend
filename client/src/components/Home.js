@@ -63,6 +63,7 @@ const Home = () => {
             <>
             { ( collections_list && collections_list.length !== 0 ) &&
                 <div className='container font-2 mt-5'>
+                    <hr/>
                     <h3 className='color-accent-2 my-4' align='center'>poem collections. <Badge pill variant="secondary">{collections_list.length}</Badge></h3>
                     <CollectionsList collections_list={collections_list} />
                 </div>

@@ -20,26 +20,24 @@ import TagManager from 'react-gtm-module';
 const tagManagerArgs = { gtmId: 'GTM-NHQ4NHC' }
 TagManager.initialize(tagManagerArgs);
 
-class App extends React.Component{
-    render(){
-        return(
-            <Router>
-                <div>
-                    <ScrollToTop />
-                    <Header />
-                    <Switch>
-                        <Route exact path='/'><Home /></Route>
-                        <Route exact path='/terms_privacy'><TermsPrivacy /></Route>
-                        <Route exact path='/collection/:collection_id'><PoemCollection /></Route>
-                        <Route exact path='/poem/:poem_id'><Poem /></Route>
-                        <Route path='*' component={ErrorPage} />
-                    </Switch>
-                    <Footer />
-                    <ThemeSwitcher />
-                </div>
-            </Router>
-        );
-    }
+const App = () => {
+    return(
+        <Router>
+            <div>
+                <ScrollToTop />
+                <Header />
+                <Switch>
+                    <Route exact path='/'><Home /></Route>
+                    <Route exact path='/terms_privacy'><TermsPrivacy /></Route>
+                    <Route exact path='/collection/:collection_id'><PoemCollection /></Route>
+                    <Route exact path='/poem/:poem_id'><Poem /></Route>
+                    <Route path='*' component={ErrorPage} />
+                </Switch>
+                <Footer />
+                <ThemeSwitcher />
+            </div>
+        </Router>
+    );
 }
 
 export default App;
