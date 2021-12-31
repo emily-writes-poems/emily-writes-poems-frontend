@@ -10,10 +10,10 @@ const ThemeSwitcher = () => {
 
         //set favicon
         let favicon = document.getElementById('favicon');
-        if(localStorage.getItem('mode') === 'day') {
-            favicon.setAttribute('href', './favicon.ico');
-        } else {
+        if(localStorage.getItem('mode') === 'night') {
             favicon.setAttribute('href', './favicon_dark.ico');
+        } else {
+            favicon.setAttribute('href', './favicon.ico');
         }
     }, [mode]);
 
