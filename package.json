@@ -15,5 +15,8 @@
     "devstart": "export NODE_ENV=development && node server.js",
     "start": "export NODE_ENV=production && node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "engines": {
+    "node": "14.18"
   }
 }
