@@ -23,7 +23,7 @@ const CollectionsList = (props) => {
         { collections_list &&
             <ul className="list-block">
                 { collections_list.map((collection, index) =>
-                    <li>
+                    <li key={index}>
                         <Link to={'/collection/' + collection.collection_id}>
                              <Button className="button">
                                  <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{collection.collection_name}</Markdown>

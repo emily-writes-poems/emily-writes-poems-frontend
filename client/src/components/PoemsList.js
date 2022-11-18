@@ -29,7 +29,7 @@ const PoemsList = (props) => {
         { poems_list && [list_style === "list" ?
             <ul className="list-list">
                 { poems_list.map((poem, index) =>
-                    <li>
+                    <li key={poem.poem_id}>
                         <Link className="list-link-style" to={'/poem/' + poem.poem_id}>
                              {poem.poem_title}
                         </Link>
@@ -39,7 +39,7 @@ const PoemsList = (props) => {
             :
             <ul className="list-block">
                 { poems_list.map((poem, index) =>
-                    <li>
+                    <li key={poem.poem_id}>
                         <Link to={'/poem/' + poem.poem_id}>
                              <Button className="button">
                                  <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{poem.poem_title}</Markdown>
