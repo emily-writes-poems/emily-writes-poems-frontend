@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { Helmet } from 'react-helmet';
 import { Badge } from 'react-bootstrap';
 
@@ -8,6 +7,7 @@ import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 
+import Wordcloud from '../utils/Wordcloud';
 import LinksList from '../utils/LinksList';
 import ErrorPage from './ErrorPage';
 
@@ -16,6 +16,7 @@ const PoemCollection = () => {
     const { collection_id } = useParams();
     const [ collection_not_found, setCollectionNotFound ] = useState(false);
     const [ collection_data, setCollectionData ] = useState();
+    const [ wordcloud_data, setWordcloudData ] = useState();
 
 
     // Fetch collection data from server
@@ -25,6 +26,7 @@ const PoemCollection = () => {
             if (!res.ok) { res.json().then( data => { console.error(data.errorMessage); } ) }
             else {
                 await res.json().then((data) => {
+                    console.log(data);
                     if (Object.keys(data).length === 0) {  // no collection returned
                         setCollectionNotFound(true);
                     } else if (!data.hasOwnProperty("poem_ids") || (!data.hasOwnProperty("poem_titles"))) {  // missing fields
@@ -33,6 +35,9 @@ const PoemCollection = () => {
                         setCollectionNotFound(true);
                     } else {
                         setCollectionData(data);
+                        if (data["wordcloud"] && data["wordcloud"].length > 0) {
+                            setWordcloudData(data["wordcloud"]);
+                        }
                     }
                 });
             }
@@ -64,6 +69,13 @@ const PoemCollection = () => {
                     <h5 className='font-2 color-accent-1'>poems in collection. <Badge pill variant="secondary">{collection_data.poem_ids.length}</Badge></h5>
                     <LinksList link_path={'poem'} link_IDs={collection_data.poem_ids} link_titles={collection_data.poem_titles} />
                 </div>
+
+                {wordcloud_data &&
+                    <div className='container mt-5'>
+                        <h5 className='font-2 color-accent-1'>wordcloud.</h5>
+                        <Wordcloud wordcloud_data={wordcloud_data} />
+                    </div>
+                }
 
             </div>
         }
