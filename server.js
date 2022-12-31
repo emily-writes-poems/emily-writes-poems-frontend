@@ -19,7 +19,6 @@ let PORT = process.env.PORT || 5000;
 let DB_URI = process.env.CONNECTION_URI;
 let NODE_ENV = app.get('env');
 
-console.log(NODE_ENV);
 
 mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => console.log('>> INFO: Successfully established MongoDB connection!'))
