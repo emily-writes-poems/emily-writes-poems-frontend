@@ -134,10 +134,10 @@ const Poem = () => {
                     </div>
                     }
 
-                    { poem_data.similar_poems_ids &&
+                    { poem_data.linked_poems_ids &&
                     <div>
-                        <h5 className='font-2 color-accent-1'>similar poems.</h5>
-                        <LinksList link_path={'poem'} link_IDs={poem_data.similar_poems_ids} link_titles={poem_data.similar_poems_titles}/>
+                        <h5 className='font-2 color-accent-1'>related poems.</h5>
+                        <LinksList link_path={'poem'} link_IDs={poem_data.linked_poems_ids} link_titles={poem_data.linked_poems_titles}/>
                     </div>
                     }
 
@@ -145,6 +145,13 @@ const Poem = () => {
                     <div>
                         <h5 className='font-2 color-accent-1'>collection(s).</h5>
                         <LinksList link_path={'collection'} link_IDs={collection_ids} link_titles={collection_names}/>
+                    </div>
+                    }
+
+                    { poem_data.similar_poems_ids &&
+                    <div>
+                        <h5 className='font-2 color-accent-1'>other poems to explore.</h5>
+                        <LinksList link_path={'poem'} link_IDs={poem_data.similar_poems_ids} link_titles={poem_data.similar_poems_titles}/>
                     </div>
                     }
                 </div>
