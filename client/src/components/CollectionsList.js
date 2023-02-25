@@ -21,7 +21,7 @@ const CollectionsList = (props) => {
     return (
         <>
         { collections_list &&
-            <ul className="list-block">
+            <ul className="styledList">
                 { collections_list.map((collection, index) =>
                     <li key={index}>
                         <Link to={'/collection/' + collection.collection_id}>

@@ -49,7 +49,7 @@ const Home = () => {
             <>
             { ( poems_list && poems_list.length !== 0 ) &&
                 <div className='container font-2'>
-                    <h3 className='color-accent-2 my-4' align='center'>my poems. <Badge pill variant="secondary">{poems_list.length}</Badge></h3>
+                    <h3 className='color-accent-2 my-4' align='center'>my poems. <Badge pill bg='badge-number'>{poems_list.length}</Badge></h3>
                     <Feature />
                     <div className='poems-list-formatter'>
                         <i className="material-icons" onClick={() => toggle_poems_list_style("list")}>format_list_bulleted</i>
@@ -64,7 +64,7 @@ const Home = () => {
             { ( collections_list && collections_list.length !== 0 ) &&
                 <div className='container font-2 mt-5'>
                     <hr/>
-                    <h3 className='color-accent-2 my-4' align='center'>poem collections. <Badge pill variant="secondary">{collections_list.length}</Badge></h3>
+                    <h3 className='color-accent-2 my-4' align='center'>poem collections. <Badge pill bg='badge-number'>{collections_list.length}</Badge></h3>
                     <CollectionsList collections_list={collections_list} />
                 </div>
             }

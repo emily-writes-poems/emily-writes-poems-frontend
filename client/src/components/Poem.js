@@ -126,7 +126,7 @@ const Poem = () => {
                             <ul>
                                 { Object.keys(poem_data.top_words).map((word, _) =>
                                     <li key={word}>
-                                        {word} <Badge pill variant="secondary">{poem_data.top_words[word]}</Badge>
+                                        {word} <Badge pill bg='badge-number'>{poem_data.top_words[word]}</Badge>
                                     </li>
                                 ) }
                             </ul>
