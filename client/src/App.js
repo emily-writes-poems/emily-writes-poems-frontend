@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Header from './utils/Header';
@@ -22,21 +22,21 @@ TagManager.initialize(tagManagerArgs);
 
 const App = () => {
     return(
-        <Router>
+        <BrowserRouter>
             <div>
                 <ScrollToTop />
                 <Header />
-                <Switch>
-                    <Route exact path='/'><Home /></Route>
-                    <Route exact path='/terms_privacy'><TermsPrivacy /></Route>
-                    <Route exact path='/collection/:collection_id'><PoemCollection /></Route>
-                    <Route exact path='/poem/:poem_id'><Poem /></Route>
-                    <Route path='*' component={ErrorPage} />
-                </Switch>
+                <Routes>
+                    <Route exact path='/' element={<Home />} />
+                    <Route exact path='/terms_privacy' element={<TermsPrivacy />} />
+                    <Route exact path='/collection/:collection_id' element={<PoemCollection />} />
+                    <Route exact path='/poem/:poem_id' element={<Poem />} />
+                    <Route path='*' element={ErrorPage} /> />
+                </Routes>
                 <Footer />
                 <ThemeSwitcher />
             </div>
-        </Router>
+        </BrowserRouter>
     );
 }
 

@@ -26,7 +26,6 @@ const PoemCollection = () => {
             if (!res.ok) { res.json().then( data => { console.error(data.errorMessage); } ) }
             else {
                 await res.json().then((data) => {
-                    console.log(data);
                     if (Object.keys(data).length === 0) {  // no collection returned
                         setCollectionNotFound(true);
                     } else if (!data.hasOwnProperty("poem_ids") || (!data.hasOwnProperty("poem_titles"))) {  // missing fields
@@ -66,7 +65,7 @@ const PoemCollection = () => {
                 </div>
 
                 <div className='container mt-5'>
-                    <h5 className='font-2 color-accent-1'>poems in collection. <Badge pill variant="secondary">{collection_data.poem_ids.length}</Badge></h5>
+                    <h5 className='font-2 color-accent-1'>poems in collection. <Badge pill bg='badge-number'>{collection_data.poem_ids.length}</Badge></h5>
                     <LinksList link_path={'poem'} link_IDs={collection_data.poem_ids} link_titles={collection_data.poem_titles} />
                 </div>
 

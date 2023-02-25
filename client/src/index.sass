@@ -17,7 +17,7 @@ $color-accent-night-2: #8A88D2
 .night
     background-color: $color-background-night
     color: $color-text-night
-    .styledList ul li .button
+    .styledList li .button
         &, &:active, &:active:focus
             color: $color-text-night !important
     .list-block li .button
@@ -55,8 +55,10 @@ html, body, #root
 .link-style, .link-style:hover
     color: $color-accent-1
 
-.no-td, .no-td:hover
+.no-td
     text-decoration: none
+    &:hover
+        text-decoration: underline
 
 .color-accent-1
     color: $color-accent-1
@@ -73,8 +75,8 @@ html, body, #root
 .font-3
     font-family: $font-3, sans-serif
 
-.badge-secondary
-    background-color: $color-accent-2 !important
+.bg-badge-number
+    background-color: $color-accent-2
 
 .button
     background-color: $color-background !important
@@ -110,10 +112,9 @@ ul p
 
 /* STYLED LINKS LIST */
 .styledList
-    ul
-        margin-top: 5px
-        list-style-type: none
-        padding-left: 0
+    margin-top: 5px
+    list-style-type: none
+    padding-left: 0
     li
         font-family: $font-2
         display: inline-block
@@ -133,6 +134,8 @@ ul p
     .summary
         font-family: $font-1
         padding: 0.5em
+        ul
+            list-style-position: inside
 
 
 /* FEATURE ALERT BOX */
@@ -149,7 +152,7 @@ ul p
         font-size: 1.25em
 
 
-/* Homepage lists */
+/* Homepage poem list */
 .poems-list-formatter
     text-align: center
     margin: 1.5em
@@ -161,25 +164,11 @@ ul p
             color: $color-accent-1
         color: $color-accent-2
 
-.list-list li
+.homepage-poems-list li
     list-style-type: disc
     color: $color-accent-night-1
     .list-link-style, .list-link-style:hover
         color: $color-accent-1
-
-.list-block
-    ul
-        margin-top: 5px
-        list-style-type: none
-        padding-left: 0
-    li
-        font-family: $font-2
-        display: inline-block
-        padding: 10px 0px
-        margin-right: 30px
-        .button
-            &, &:active, &:active:focus
-                color: $color-accent-1
 
 
 /* POEM PAGE*/

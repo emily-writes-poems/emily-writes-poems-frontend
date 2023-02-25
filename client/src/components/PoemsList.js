@@ -27,17 +27,17 @@ const PoemsList = (props) => {
     return (
         <>
         { poems_list && [list_style === "list" ?
-            <ul className="list-list">
+            <ul className="homepage-poems-list">
                 { poems_list.map((poem, index) =>
                     <li key={poem.poem_id}>
-                        <Link className="list-link-style" to={'/poem/' + poem.poem_id}>
+                        <Link className="list-link-style no-td" to={'/poem/' + poem.poem_id}>
                              {poem.poem_title}
                         </Link>
                     </li>
                  ) }
             </ul>
             :
-            <ul className="list-block">
+            <ul className="styledList">
                 { poems_list.map((poem, index) =>
                     <li key={poem.poem_id}>
                         <Link to={'/poem/' + poem.poem_id}>

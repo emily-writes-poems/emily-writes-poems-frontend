@@ -40,11 +40,9 @@ const LinksList = (props) => {
 
     return (
         <>
-        <div className="styledList">
-            <ul>
-                {link_buttons}
-            </ul>
-        </div>
+        <ul className="styledList">
+            {link_buttons}
+        </ul>
         </>
     )
 
