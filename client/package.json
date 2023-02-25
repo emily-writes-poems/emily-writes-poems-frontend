@@ -12,13 +12,11 @@
     "react-helmet": "^6.1.0",
     "react-markdown": "^8.0.5",
     "react-router-dom": "^6.8.1",
+    "react-scripts": "^5.0.1",
     "react-wordcloud": "^1.2.7",
     "rehype-raw": "^6.1.1",
     "rehype-sanitize": "^5.0.1",
     "sass": "^1.58.3"
-  },
-  "devDependencies": {
-    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
