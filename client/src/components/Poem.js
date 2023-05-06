@@ -122,15 +122,13 @@ const Poem = () => {
                     { (poem_data.top_words && poem_data.top_words.length !== 0) &&
                     <div>
                         <h5 className='font-2 color-accent-1'>top words.</h5>
-                        <div className="styledList">
-                            <ul>
-                                { Object.keys(poem_data.top_words).map((word, _) =>
-                                    <li key={word}>
-                                        {word} <Badge pill bg='badge-number'>{poem_data.top_words[word]}</Badge>
-                                    </li>
-                                ) }
-                            </ul>
-                        </div>
+                        <ul className="styledList">
+                            { Object.keys(poem_data.top_words).map((word, _) =>
+                                <li key={word}>
+                                    {word} <Badge pill bg='badge-number'>{poem_data.top_words[word]}</Badge>
+                                </li>
+                            ) }
+                        </ul>
                     </div>
                     }
 
