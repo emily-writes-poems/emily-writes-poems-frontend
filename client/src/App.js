@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Header from './utils/Header';
 import Footer from './utils/Footer';
-import ThemeSwitcher from './utils/ThemeSwitcher';
-import { ScrollToTop } from './utils/Utils'
+import FloatingUtils from './utils/FloatingUtils';
+import { ScrollToTop } from './utils/Utils';
 
 import Home from './components/Home';
 import TermsPrivacy from './components/TermsPrivacy';
@@ -34,7 +34,7 @@ const App = () => {
                     <Route path='*' element={ErrorPage} /> />
                 </Routes>
                 <Footer />
-                <ThemeSwitcher />
+                <FloatingUtils />
             </div>
         </BrowserRouter>
     );

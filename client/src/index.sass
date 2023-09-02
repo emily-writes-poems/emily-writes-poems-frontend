@@ -125,6 +125,11 @@ ul p
                 color: black !important
 
 
+/* HEADER COMPONENT */
+#site-title
+    display: inline-block
+
+
 /* ABOUT COMPONENT */
 .about
     text-align: center
@@ -191,14 +196,31 @@ ul p
     margin-top: 10px
 
 
-/* THEME SWITCHER */
-.theme-switcher
-    position: fixed
-    right: 3%
+/* THEME SWITCHER and JUMP TO NAVIGATION */
+.floating-utils
+    right: 1%
     bottom: 3%
-
+    position: fixed
+    text-align: center
     .material-icons
         font-size: 48px
         &:hover
             cursor: pointer
+            opacity: 0.8
         color: $color-accent-2
+
+#jump-to-buttons
+    display: flex
+    flex-direction: column
+    list-style: none
+    text-align: right
+    padding: 0
+    li
+        display: inline-block
+        .material-icons
+            cursor: pointer
+            font-size: 2.5em
+            padding: 0
+            margin: 0
+        span
+            border: 2px orange solid

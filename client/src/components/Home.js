@@ -48,7 +48,7 @@ const Home = () => {
 
             <>
             { ( poems_list && poems_list.length !== 0 ) &&
-                <div className='container font-2'>
+                <div className='container font-2' id='home-poems'>
                     <h3 className='color-accent-2 my-4' align='center'>my poems. <Badge pill bg='badge-number'>{poems_list.length}</Badge></h3>
                     <Feature />
                     <div className='poems-list-formatter'>
@@ -62,7 +62,7 @@ const Home = () => {
 
             <>
             { ( collections_list && collections_list.length !== 0 ) &&
-                <div className='container font-2 mt-5'>
+                <div className='container font-2 mt-5' id='home-collections'>
                     <hr/>
                     <h3 className='color-accent-2 my-4' align='center'>poem collections. <Badge pill bg='badge-number'>{collections_list.length}</Badge></h3>
                     <CollectionsList collections_list={collections_list} />
