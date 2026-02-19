@@ -33,12 +33,6 @@ let Poem = new Schema(
        },
        poem_collections_ids : [{
             type: String
-       }],
-       similar_poems_ids : [{
-           type: String
-       }],
-       similar_poems_titles : [{
-           type: String
        }]
    },
    { collection: 'poems-list'}
