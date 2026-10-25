@@ -31,7 +31,7 @@ const App = () => {
                     <Route exact path='/terms_privacy' element={<TermsPrivacy />} />
                     <Route exact path='/collection/:collection_id' element={<PoemCollection />} />
                     <Route exact path='/poem/:poem_id' element={<Poem />} />
-                    <Route path='*' element={ErrorPage} /> />
+                    <Route path='*' element={ErrorPage} />
                 </Routes>
                 <Footer />
                 <ThemeSwitcher />
